@@ -23,7 +23,6 @@ public class CittaDao  implements Serializable
 	@Column(name = "description")
 	private String name;
 	
-	@Id
 	@Column(name = "id_prov")
 	private String idProv;
 	

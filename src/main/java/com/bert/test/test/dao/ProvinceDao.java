@@ -37,7 +37,6 @@ public class ProvinceDao implements Serializable
 	@Column(name = "description")
 	private String description;
 	
-	@Id
 	@Column(name = "id_regione")
 	private String idRegione;
 	
