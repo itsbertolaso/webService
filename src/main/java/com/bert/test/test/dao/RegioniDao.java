@@ -35,8 +35,7 @@ public class RegioniDao
 	@Basic(optional = false)
 	@Column(name = "description")
 	private String description;
-	
-	@Id
+	 
 	@Column(name = "iso_coun")
 	private String isoCountry;
 

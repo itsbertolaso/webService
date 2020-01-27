@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.bert.test.test.dao.CittaDao;
 
-public interface NazioniRepository extends JpaRepository<CittaDao, Long> {
+public interface NazioniRepository extends JpaRepository<CittaDao, String> {
 
 }

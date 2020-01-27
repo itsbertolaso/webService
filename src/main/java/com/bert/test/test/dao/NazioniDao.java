@@ -21,10 +21,7 @@ import lombok.Data;
 @Entity
 @Table(name = "nazioni")
 @Data
-public class NazioniDao  implements Serializable
-{
-	private static final long serialVersionUID = -55;
-
+public class NazioniDao {
 	@Id
 	@Column(name = "iso")
 	private String iso;

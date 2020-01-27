@@ -25,10 +25,7 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Table(name = "province")
 @Data
-public class ProvinceDao implements Serializable
-{
-	private static final long serialVersionUID = -55;
-
+public class ProvinceDao{
 	@Id
 	@Column(name = "id_prov")
 	private String idProvincia;
@@ -37,7 +34,6 @@ public class ProvinceDao implements Serializable
 	@Column(name = "description")
 	private String description;
 	
-	@Id
 	@Column(name = "id_regione")
 	private String idRegione;
 	

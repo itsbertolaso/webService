@@ -15,7 +15,7 @@ public class DipendentiDao
 {
 	@Id
 	@Column(name = "id")
-	private String idDipendente;
+	private Long idDipendente;
 	
 	@Basic(optional = false)
 	@Column(name = "name")
@@ -25,8 +25,9 @@ public class DipendentiDao
 	@Column(name = "surname")
 	private String surname;
 	
+	
 	@Basic(optional = false)
-	@Column(name = "taxCode")
+	@Column(name = "taxcode")
 	private String taxCode;
 	
 	@Basic(optional = false)

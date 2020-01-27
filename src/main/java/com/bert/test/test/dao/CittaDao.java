@@ -13,17 +13,16 @@ import lombok.Data;
 @Entity
 @Table(name = "citta")
 @Data
-public class CittaDao  implements Serializable
+public class CittaDao 
 {
 	@Id
 	@Column(name = "id_city")
-	private String idCity;
+	private Long idCity;
 	
 	@Basic(optional = false)
 	@Column(name = "description")
 	private String name;
 	
-	@Id
 	@Column(name = "id_prov")
 	private String idProv;
 	
