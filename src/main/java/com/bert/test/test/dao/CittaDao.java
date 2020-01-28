@@ -19,7 +19,6 @@ public class CittaDao  implements Serializable
 	@Column(name = "id_city")
 	private String idCity;
 	
-	@Basic(optional = false)
 	@Column(name = "description")
 	private String name;
 	
