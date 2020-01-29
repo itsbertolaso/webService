@@ -1,6 +1,7 @@
 package com.bert.test.test.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -20,6 +21,18 @@ public class CittaServiceImpl implements CittaService{
 	@Override
 	public List<CittaDao> selTutti() {
 		return cittaRep.findAll();
+	}
+
+	@Override
+	public Optional<CittaDao> selByIdCitta(Long id) {
+		// TODO Auto-generated method stub
+		return cittaRep.findById(id);
+	}
+
+	@Override
+	public List<CittaDao> selByIdProv(String id) {
+		// TODO Auto-generated method stub
+		return cittaRep.findByIdProv(id);
 	}
 	
 }
