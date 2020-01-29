@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bert.test.test.dao.DipendentiDao;
+import com.bert.test.test.dto.DipendentiDto;
 import com.bert.test.test.services.DipendentiService;
 
 @RestController
@@ -22,7 +23,16 @@ public class DipendentiController {
 	public ResponseEntity<List<DipendentiDao>> allDip(){
 		List<DipendentiDao> dipendenti = dipSer.selTutti();
 		if(dipendenti.isEmpty()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		return new ResponseEntity<List<DipendentiDao>>(dipendenti, HttpStatus.OK);
+		
+		
+		
+		return new ResponseEntity<List<DipendentiDao>>(dipendenti, HttpStatus.OK);	
+	}
+	
+	@GetMapping(produces = "application/json", value = "/test")
+	public ResponseEntity<DipendentiDto> test(){
+		DipendentiDto ciccio = dipSer.ok();
+		return new ResponseEntity<DipendentiDto>(ciccio, HttpStatus.OK);
 	}
 }
 
