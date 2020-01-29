@@ -116,4 +116,25 @@ public class DipendentiController {
 		
 		return response;
 	}
+	
+	@PostMapping(value = "/update", produces = "application/json")
+	public BaseResponseDto<DipendentiDao> updateDipendente(@RequestBody DipendentiDao dipendente) {
+		
+		BaseResponseDto<DipendentiDao> response = new BaseResponseDto<DipendentiDao>();
+		logger.info("****** Aggiorna dipendente " + dipendente.getIdDipendente() + "******");
+		
+		try {
+			dipendentiService.updateDipendente(dipendente);
+			response.setResponse("Updated");
+		}
+		catch(Exception ex) {
+			response.setResponse("Not found");
+		}
+		
+		response.setTimestamp(new Date());
+		response.setStatus(HttpStatus.OK.value());
+		response.setMessage("SERVIZIO_ELABORATO_CORRETTAMENTE");
+		
+		return response;
+	}
 }

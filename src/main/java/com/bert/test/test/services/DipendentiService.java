@@ -11,4 +11,5 @@ public interface DipendentiService {
 	public Optional<DipendentiDao> selById(Long id);
 	public void deleteById(Long id);
 	public void createDipendente(DipendentiDao d);
+	public void updateDipendente(DipendentiDao d);
 }

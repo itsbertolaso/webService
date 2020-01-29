@@ -36,4 +36,9 @@ public class DipendentiServiceImpl implements DipendentiService{
 	public void createDipendente(DipendentiDao d) {
 		dipendentiRepository.saveAndFlush(d);
 	}
+
+	@Override
+	public void updateDipendente(DipendentiDao d) {
+		dipendentiRepository.saveAndFlush(d);
+	}
 }
