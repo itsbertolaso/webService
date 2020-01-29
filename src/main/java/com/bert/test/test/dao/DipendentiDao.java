@@ -37,5 +37,4 @@ public class DipendentiDao
 	@Basic(optional = false)
 	@Column(name = "city")
 	private int city;
-	
 }
