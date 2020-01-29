@@ -13,7 +13,8 @@ import lombok.Data;
 @Entity
 @Table(name = "citta")
 @Data
-public class CittaDao {
+public class CittaDao 
+{
 	@Id
 	@Column(name = "id_city")
 	private Long idCity;
