@@ -16,18 +16,14 @@ public class DipendentiDao
 	@Id
 	@Column(name = "id")
 	private Long idDipendente;
-	
-	@Basic(optional = false)
+
 	@Column(name = "name")
 	private String name;
 	
-	@Basic(optional = false)
 	@Column(name = "surname")
 	private String surname;
 	
-	
-	@Basic(optional = false)
-	@Column(name = "taxcode")
+	@Column(name = "tax_code")
 	private String taxCode;
 	
 	@Basic(optional = false)
