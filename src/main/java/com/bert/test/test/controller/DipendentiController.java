@@ -36,25 +36,26 @@ public class DipendentiController {
 	public BaseResponseDto<List<DipendentiDto>> listAllDipendenti(){
 		
 		BaseResponseDto<List<DipendentiDto>> response = new BaseResponseDto<>();
-		logger.info("****** Otteniamo tutte le promozioni *******");
+		logger.info("****** Otteniamo tutti i dipendenti *******");
 		
 		List<DipendentiDao> dipendente = dipendentiService.selTutti();
 		
 		response.setTimestamp(new Date());
 		response.setStatus(HttpStatus.OK.value());
 		response.setMessage("SERVIZIO_ELABORATO_CORRETTAMENTE");
-		if (dipendente.isEmpty())
-		{
+		
+		if (dipendente.isEmpty()) {
 			response.setResponse(null);
-			return response;
+		}
+		else {
+			logger.info("Numero dei record: " + dipendente.size());
+			
+			DipendentiDto dto = new DipendentiDto();
+			dto.setDipendentiData(dipendente);
+			
+			response.setResponse(dto);
 		}
 		
-		logger.info("Numero dei record: " + dipendente.size());
-		
-		DipendentiDto dto = new DipendentiDto();
-		dto.setDipendentiData(dipendente);
-		
-		response.setResponse(dto);
 		return response;		
 	}
 	
@@ -62,13 +63,15 @@ public class DipendentiController {
 	public BaseResponseDto<DipendentiDao> listDipendentiById(@PathVariable("idDipendente") String idDipendente){
 		
 		BaseResponseDto<DipendentiDao> response = new BaseResponseDto<DipendentiDao>();
-		logger.info("****** Cerca dipendete con id "+ idDipendente+" *******");
+		logger.info("****** Cerca dipendente con id "+ idDipendente+" *******");
 
 		Optional<DipendentiDao> dipendente = dipendentiService.selById(Long.parseLong(idDipendente));		
 		DipendentiDao dip;
+		
 		try {
 			dip = dipendente.get();
-		}catch(NoSuchElementException e){
+		}
+		catch (NoSuchElementException ex) {
 			dip = null;
 		}
 		
@@ -85,14 +88,14 @@ public class DipendentiController {
 	public BaseResponseDto<DipendentiDao> deleteDipendenteById(@PathVariable("idDipendente") String idDipendente){
 		
 		BaseResponseDto<DipendentiDao> response = new BaseResponseDto<DipendentiDao>();
-		logger.info("****** Cancella dipendete con id "+ idDipendente+" *******");
+		logger.info("****** Cancella dipendente con id "+ idDipendente+" *******");
 
 		try {
 			dipendentiService.deleteById(Long.parseLong(idDipendente));	
 			response.setResponse("Deleted");
 		}
 		catch (EmptyResultDataAccessException ex) {
-			response.setResponse("Not found");
+			response.setStatus(HttpStatus.NOT_FOUND.value());
 		}
 		
 		response.setTimestamp(new Date());
@@ -111,9 +114,8 @@ public class DipendentiController {
 		dipendentiService.createDipendente(dipendente);
 		
 		response.setTimestamp(new Date());
-		response.setStatus(HttpStatus.OK.value());
+		response.setStatus(HttpStatus.CREATED.value());
 		response.setMessage("SERVIZIO_ELABORATO_CORRETTAMENTE");
-		response.setResponse("Created");
 		
 		return response;
 	}
@@ -132,10 +134,9 @@ public class DipendentiController {
 		if(dipendente.isPresent()) {
 			dip.setIdDipendente(idDipendente);
 			dipendentiService.updateDipendente(dip);
-			response.setResponse("Updated");
 		}
 		else {
-			response.setResponse("Not found");
+			response.setStatus(HttpStatus.NOT_FOUND.value());
 		}
 		
 		/*
