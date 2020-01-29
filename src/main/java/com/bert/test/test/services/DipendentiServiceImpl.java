@@ -19,15 +19,21 @@ public class DipendentiServiceImpl implements DipendentiService{
 	
 	@Override
 	public List<DipendentiDao> selTutti() {
-		// TODO Auto-generated method stub
 		return dipendentiRepository.findAll();
 	}
 
 	@Override
 	public Optional<DipendentiDao> selById(Long id) {
-		// TODO Auto-generated method stub
-		System.err.println(id);
 		return dipendentiRepository.findById(id);
 	}
 
+	@Override
+	public void deleteById(Long id) {
+		dipendentiRepository.deleteById(id);
+	}
+
+	@Override
+	public void createDipendente(DipendentiDao d) {
+		dipendentiRepository.saveAndFlush(d);
+	}
 }

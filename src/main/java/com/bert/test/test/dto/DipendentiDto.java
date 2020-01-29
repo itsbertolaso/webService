@@ -1,9 +1,6 @@
 package com.bert.test.test.dto;
 
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import com.bert.test.test.dao.DipendentiDao;
 
@@ -17,5 +14,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DipendentiDto {
+	
 	private List<DipendentiDao> dipendentiData;
 }

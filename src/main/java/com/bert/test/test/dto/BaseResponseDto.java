@@ -12,10 +12,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class BaseResponseDto<T> {
+	
 	private Date timestamp;
 	private int status;
 	private String error;
 	private String message;
 	private Object response;
-
 }

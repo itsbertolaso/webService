@@ -9,5 +9,4 @@ import com.bert.test.test.dao.CittaDao;
 public interface CittaRepository extends JpaRepository<CittaDao, Long> {
 
 	List<CittaDao> findByIdProv(String id);
-
 }

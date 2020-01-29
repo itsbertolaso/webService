@@ -8,9 +8,12 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,6 +33,7 @@ public class DipendentiController {
 	
 	@GetMapping(produces = "application/json")
 	public BaseResponseDto<List<DipendentiDto>> listAllDipendenti(){
+		
 		BaseResponseDto<List<DipendentiDto>> response = new BaseResponseDto<>();
 		logger.info("****** Otteniamo tutte le promozioni *******");
 		
@@ -55,6 +59,7 @@ public class DipendentiController {
 	
 	@GetMapping(value = "/id/{idDipendente}", produces = "application/json")
 	public BaseResponseDto<DipendentiDao> listDipendentiById(@PathVariable("idDipendente") String idDipendente){
+		
 		BaseResponseDto<DipendentiDao> response = new BaseResponseDto<DipendentiDao>();
 		logger.info("****** Cerca dipendete con id "+ idDipendente+" *******");
 
@@ -74,5 +79,41 @@ public class DipendentiController {
 		return response;
 		
 	}
+	
+	@GetMapping(value = "/delete/{idDipendente}", produces = "application/json")
+	public BaseResponseDto<DipendentiDao> deleteDipendenteById(@PathVariable("idDipendente") String idDipendente){
+		
+		BaseResponseDto<DipendentiDao> response = new BaseResponseDto<DipendentiDao>();
+		logger.info("****** Cancella dipendete con id "+ idDipendente+" *******");
 
+		try {
+			dipendentiService.deleteById(Long.parseLong(idDipendente));	
+			response.setResponse("Deleted");
+		}
+		catch (EmptyResultDataAccessException ex) {
+			response.setResponse("Not found");
+		}
+		
+		response.setTimestamp(new Date());
+		response.setStatus(HttpStatus.OK.value());
+		response.setMessage("SERVIZIO_ELABORATO_CORRETTAMENTE");
+		
+		return response;
+	}
+	
+	@PostMapping(value = "/create", produces = "application/json")
+	public BaseResponseDto<DipendentiDao> createDipendente(@RequestBody DipendentiDao dipendente) {
+		
+		BaseResponseDto<DipendentiDao> response = new BaseResponseDto<DipendentiDao>();
+		logger.info("****** Crea dipendente " + dipendente.getName() + "******");
+		
+		dipendentiService.createDipendente(dipendente);
+		
+		response.setTimestamp(new Date());
+		response.setStatus(HttpStatus.OK.value());
+		response.setMessage("SERVIZIO_ELABORATO_CORRETTAMENTE");
+		response.setResponse("Created");
+		
+		return response;
+	}
 }

@@ -1,8 +1,9 @@
 package com.bert.test.test.dao;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,9 +12,10 @@ import lombok.Data;
 @Entity
 @Table(name = "dipendenti")
 @Data
-public class DipendentiDao 
-{
+public class DipendentiDao {
+	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long idDipendente;
 
@@ -26,15 +28,12 @@ public class DipendentiDao
 	@Column(name = "tax_code")
 	private String taxCode;
 	
-	@Basic(optional = false)
 	@Column(name = "gender")
 	private String gender;
 		
-	@Basic(optional = false)
 	@Column(name = "address")
 	private String address;
 	
-	@Basic(optional = false)
 	@Column(name = "city")
 	private int city;
 }
