@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -117,19 +118,39 @@ public class DipendentiController {
 		return response;
 	}
 	
-	@PostMapping(value = "/update", produces = "application/json")
-	public BaseResponseDto<DipendentiDao> updateDipendente(@RequestBody DipendentiDao dipendente) {
+	@PutMapping(value = "/update/{idDipendente}", produces = "application/json")
+	public BaseResponseDto<DipendentiDao> updateDipendente(@RequestBody DipendentiDao dip, @PathVariable long idDipendente) {
 		
 		BaseResponseDto<DipendentiDao> response = new BaseResponseDto<DipendentiDao>();
-		logger.info("****** Aggiorna dipendente " + dipendente.getIdDipendente() + "******");
+		logger.info("****** Aggiorna dipendente " + idDipendente + "******");
 		
-		try {
-			dipendentiService.updateDipendente(dipendente);
+		Optional<DipendentiDao> dipendente = dipendentiService.selById(idDipendente);
+		
+//		@SuppressWarnings("unused")
+//		DipendentiDao temp;
+		
+		if(dipendente.isPresent()) {
+			dip.setIdDipendente(idDipendente);
+			dipendentiService.updateDipendente(dip);
 			response.setResponse("Updated");
 		}
-		catch(Exception ex) {
+		else {
 			response.setResponse("Not found");
 		}
+		
+		/*
+		 * Bisogna decidere se usare if/else o try/catch
+		 */
+		
+//		try {
+//			temp = dipendente.get();
+//			dip.setIdDipendente(idDipendente);
+//			dipendentiService.updateDipendente(dip);
+//			response.setResponse("Updated");
+//		}
+//		catch (NoSuchElementException ex) {
+//			response.setResponse("Not found");
+//		}
 		
 		response.setTimestamp(new Date());
 		response.setStatus(HttpStatus.OK.value());
