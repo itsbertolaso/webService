@@ -15,6 +15,7 @@ import lombok.Data;
 @Data
 public class CittaDao 
 {
+	//test commit
 	@Id
 	@Column(name = "id_city")
 	private Long idCity;
