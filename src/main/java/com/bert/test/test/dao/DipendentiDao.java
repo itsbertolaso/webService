@@ -23,7 +23,7 @@ public class DipendentiDao
 	@Column(name = "surname")
 	private String surname;
 	
-	@Column(name = "taxCode")
+	@Column(name = "taxcode")
 	private String taxCode;
 	
 	@Column(name = "gender")
