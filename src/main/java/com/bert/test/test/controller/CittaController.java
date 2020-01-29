@@ -17,7 +17,6 @@ import com.bert.test.test.services.CittaService;
 @RestController
 @RequestMapping(value = "api/city")
 public class CittaController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(CittaController.class);
 	
 	@Autowired
 	CittaService cittaSer;
