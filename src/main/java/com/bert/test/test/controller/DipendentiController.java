@@ -1,5 +1,6 @@
 package com.bert.test.test.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,12 @@ public class DipendentiController {
 	public ResponseEntity<DipendentiDto> test(){
 		DipendentiDto ciccio = dipSer.ok();
 		return new ResponseEntity<DipendentiDto>(ciccio, HttpStatus.OK);
+	}
+	
+	@GetMapping(produces = "application/json", value = "/cc")
+	public ResponseEntity<ArrayList<DipendentiDto>> testCC(){
+		ArrayList<DipendentiDto> ciccio = dipSer.cc();
+		return new ResponseEntity<ArrayList<DipendentiDto>>(ciccio, HttpStatus.OK);
 	}
 }
 

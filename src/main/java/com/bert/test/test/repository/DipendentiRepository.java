@@ -9,5 +9,5 @@ import com.bert.test.test.dao.DipendentiDao;
 import com.bert.test.test.dto.DipendentiDto;
 
 @Repository
-public interface DipendentiRepository extends JpaRepository<DipendentiDao, DipendentiDto> {
+public interface DipendentiRepository extends JpaRepository<DipendentiDao, String> {
 }
