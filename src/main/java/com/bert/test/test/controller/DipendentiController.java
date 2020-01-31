@@ -52,10 +52,10 @@ public class DipendentiController {
 		else {
 			logger.info("Numero dei record: " + dipendente.size());
 			
-			DipendentiDto dto = new DipendentiDto();
-			dto.setDipendentiData(dipendente);
+			//DipendentiDto dto = new DipendentiDto();
+			//dto.setDipendentiData(dipendente);
 			
-			response.setResponse(dto);
+			response.setResponse(dipendente);
 		}
 		
 		return response;		
@@ -147,7 +147,7 @@ public class DipendentiController {
 //		DipendentiDao temp;
 		
 		if(dipendente.isPresent()) {
-			dip.setIdDipendente(idDipendente);
+			dip.setIdDipendente(""+idDipendente);
 			dipendentiService.updateDipendente(dip);
 		}
 		else {

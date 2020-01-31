@@ -26,7 +26,7 @@ public class CittaServiceImpl implements CittaService{
 	@Override
 	public Optional<CittaDao> selByIdCitta(Long id) {
 		// TODO Auto-generated method stub
-		return cittaRep.findById(id);
+		return cittaRep.findById(""+id);
 	}
 
 	@Override

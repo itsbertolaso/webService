@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,12 +30,12 @@ public class DipendentiServiceImpl implements DipendentiService{
 
 	@Override
 	public Optional<DipendentiDao> selById(Long id) {
-		return dipendentiRepository.findById(id);
+		return dipendentiRepository.findById(""+id);
 	}
 
 	@Override
 	public void deleteById(Long id) {
-		dipendentiRepository.deleteById(id);
+		dipendentiRepository.deleteById(""+id);
 	}
 
 	@Override
