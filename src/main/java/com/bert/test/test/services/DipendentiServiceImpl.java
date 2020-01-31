@@ -3,6 +3,11 @@ package com.bert.test.test.services;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.transaction.Transactional;
 
@@ -16,15 +21,35 @@ import com.bert.test.test.repository.DipendentiRepository;
 @Service
 @Transactional
 public class DipendentiServiceImpl implements DipendentiService{
-
+	
 	@Autowired
-	DipendentiRepository dipSer;
+	DipendentiRepository dipendentiRepository;
 	
 	@Override
 	public List<DipendentiDao> selTutti() {
-		return dipSer.findAll();
+		return dipendentiRepository.findAll();
 	}
-	
+
+	@Override
+	public Optional<DipendentiDao> selById(Long id) {
+		return dipendentiRepository.findById(id);
+	}
+
+	@Override
+	public void deleteById(Long id) {
+		dipendentiRepository.deleteById(id);
+	}
+
+	@Override
+	public void createDipendente(DipendentiDao d) {
+		dipendentiRepository.saveAndFlush(d);
+	}
+
+	@Override
+	public void updateDipendente(DipendentiDao d) {
+		dipendentiRepository.save(d);
+	}
+  
 	@Override
 	public DipendentiDto ok(){
 		List<DipendentiDao> dao = this.selTutti();

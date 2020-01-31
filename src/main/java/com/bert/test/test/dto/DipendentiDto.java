@@ -1,7 +1,5 @@
 package com.bert.test.test.dto;
-
 import javax.validation.constraints.NotNull;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,3 +19,4 @@ public class DipendentiDto {
 	@NotNull
 	private String taxcode;
 }
+

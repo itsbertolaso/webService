@@ -7,3 +7,4 @@ import com.bert.test.test.dao.RegioniDao;
 public interface RegioniRepository  extends JpaRepository<RegioniDao, String> {
 
 }
+
