@@ -1,19 +1,22 @@
 package com.bert.test.test.dto;
+import javax.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.util.List;
-
-import com.bert.test.test.dao.DipendentiDao;
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Builder
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
 public class DipendentiDto {
 	
-	private List<DipendentiDao> dipendentiData;
+	@NotNull
+	private String idDipendente;
+	
+	@NotNull
+	private String name;
+	
+	@NotNull
+	private String surname;
+	
+	@NotNull
+	private String taxcode;
 }
+

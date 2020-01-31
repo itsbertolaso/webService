@@ -17,7 +17,7 @@ public class DipendentiDao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Long idDipendente;
+	private String idDipendente;
 
 	@Column(name = "name")
 	private String name;

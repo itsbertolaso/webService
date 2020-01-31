@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.bert.test.test.dao.CittaDao;
 
-public interface CittaRepository extends JpaRepository<CittaDao, Long> {
+public interface CittaRepository extends JpaRepository<CittaDao, String> {
 
 	List<CittaDao> findByIdProv(String id);
 }
