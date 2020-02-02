@@ -19,6 +19,6 @@ public class ProvinceDao {
 	@Column(name = "description")
 	private String description;
 	
-	@Column(name = "id_regione")
+	@Column(name = "id_region")
 	private String idRegione;
 }

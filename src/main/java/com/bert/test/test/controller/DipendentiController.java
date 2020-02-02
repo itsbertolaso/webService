@@ -209,16 +209,17 @@ public class DipendentiController {
 		/*
 		 * Bisogna decidere se usare if/else o try/catch
 		 */
-		
-//		try {
-//			temp = dipendente.get();
-//			dip.setIdDipendente(idDipendente);
-//			dipendentiService.updateDipendente(dip);
-//			response.setResponse("Updated");
-//		}
-//		catch (NoSuchElementException ex) {
-//			response.setResponse("Not found");
-//		}
+	/*	
+		try {
+			temp = dipendente.get();
+			dip.setIdDipendente(idDipendente);
+			dipendentiService.updateDipendente(dip);
+			response.setResponse("Updated");
+		}
+		catch (NoSuchElementException ex) {
+			response.setResponse("Not found");
+		}
+	*/
 		
 		response.setTimestamp(new Date());
 		response.setStatus(HttpStatus.OK.value());

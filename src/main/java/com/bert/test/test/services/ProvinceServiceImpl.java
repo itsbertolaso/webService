@@ -20,4 +20,12 @@ public class ProvinceServiceImpl implements ProvinceService{
 	public List<ProvinceDao> selTutti() {
 		return provinceRepository.findAll();
 	}
+
+	@Override
+	public List<ProvinceDao> selByIdRegione(String idRegione) {
+		// TODO Auto-generated method stub
+		return provinceRepository.findByIdRegione(idRegione);
+	}
+	
+	
 }
