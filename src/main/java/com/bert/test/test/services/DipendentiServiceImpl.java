@@ -20,14 +20,29 @@ import com.bert.test.test.repository.DipendentiRepository;
 @Transactional
 public class DipendentiServiceImpl implements DipendentiService{
 	
+	
+	/**
+	 * 
+	 * Ultime modifiche: KAPPA
+	 * N.B.: tutti i precedenti classi/metodi sono stati COMMENTATI e non 
+	 * eliminati
+	 * 
+	 */
+	
+	
 	@Autowired
 	DipendentiRepository dipendentiRepository;
 	
-	@Override
+	/*@Override
 	public List<DipendentiDao> selTutti() {
 		return dipendentiRepository.findAll();
-	}
+	}*/
 
+	@Override
+	public List<DipendentiDao> selTuttiPrivate(){
+		return dipendentiRepository.findAll();
+	}
+	
 	@Override
 	public Optional<DipendentiDao> selById(Long id) {
 		return dipendentiRepository.findById(""+id);
@@ -47,23 +62,15 @@ public class DipendentiServiceImpl implements DipendentiService{
 	public void updateDipendente(DipendentiDao d) {
 		dipendentiRepository.save(d);
 	}
-  
-	@Override
-	public DipendentiDto ok(){
-		List<DipendentiDao> dao = this.selTutti();
-		DipendentiDto dto = new DipendentiDto();
-		
-		dto.setIdDipendente(dao.get(0).getIdDipendente());
-		dto.setName(dao.get(0).getName());
-		dto.setSurname(dao.get(0).getSurname());
-		dto.setTaxcode(dao.get(0).getTaxCode());
-		
-		return dto;
-	}
 	
+	/**
+	 * La funzione chiama il DAO e da quello costruisce
+	 * un ArrayList di DTO con solo i dati necessari
+	 * @return ArrayList<DipendentiDto> dto
+	 */
 	@Override
-	public ArrayList<DipendentiDto> cc(){
-		List<DipendentiDao> dao = this.selTutti();
+	public ArrayList<DipendentiDto> selTutti(){
+		List<DipendentiDao> dao = this.selTuttiPrivate();
 		ArrayList<DipendentiDto> dto = new ArrayList<DipendentiDto>();
 		
 		for(DipendentiDao d : dao) {
@@ -71,11 +78,10 @@ public class DipendentiServiceImpl implements DipendentiService{
 			temp.setName(dao.get(0).getName());
 			temp.setSurname(dao.get(0).getSurname());
 			temp.setIdDipendente(dao.get(0).getIdDipendente());
-			temp.setTaxcode(dao.get(0).getTaxCode());
+			temp.setTaxcode(dao.get(0).getTaxcode());
 			
 			dto.add(temp);
 		}
-		
 		
 		return dto;
 	}

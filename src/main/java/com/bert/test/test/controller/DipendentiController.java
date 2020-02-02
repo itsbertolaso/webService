@@ -29,12 +29,58 @@ import com.bert.test.test.services.DipendentiService;
 @RequestMapping(value = "api/dipendenti")
 public class DipendentiController {
 	
+	
+	/**
+	 * 
+	 * Ultime modifiche: KAPPA
+	 * N.B.: tutto le precedenti classi/metodi sono stati COMMENTATI e non 
+	 * eliminati
+	 * 
+	 */
+	
+	
 	private static final Logger logger = LoggerFactory.getLogger(DipendentiController.class);
 
 	@Autowired
 	DipendentiService dipendentiService;
 	
+	/**
+	 * Funzione che usa SOLO i DTO.
+	 */
+	
 	@GetMapping(produces = "application/json")
+	public BaseResponseDto<ArrayList<DipendentiDto>> listAllDipendenti(){
+		
+		BaseResponseDto<ArrayList<DipendentiDto>> response = new BaseResponseDto<>();
+		logger.info("****** Otteniamo tutti i dipendenti *******");
+		
+		ArrayList<DipendentiDto> dipendente = dipendentiService.selTutti();
+		
+		response.setTimestamp(new Date());
+		response.setStatus(HttpStatus.OK.value());
+		response.setMessage("SERVIZIO_ELABORATO_CORRETTAMENTE");
+		
+		if (dipendente.isEmpty()) {
+			response.setResponse(null);
+		}
+		else {
+			logger.info("Numero dei record: " + dipendente.size());
+			
+			//DipendentiDto dto = new DipendentiDto();
+			//dto.setDipendentiData(dipendente);
+			
+			response.setResponse(dipendente);
+		}
+		
+		return response;		
+	}
+	
+	/**
+	 * Questa funzione va ad usare i DAO quando invece si può chiamare direttamente 
+	 * il dto.
+	 */
+	
+	/*@GetMapping(produces = "application/json")
 	public BaseResponseDto<List<DipendentiDto>> listAllDipendenti(){
 		
 		BaseResponseDto<List<DipendentiDto>> response = new BaseResponseDto<>();
@@ -59,9 +105,15 @@ public class DipendentiController {
 		}
 		
 		return response;		
-	}
+	}*/
   
-  @GetMapping(produces = "application/json", value = "/test")
+	/**
+	 * Routes di test -> esito positivo (DTO funzionante)
+	 * @param idDipendente
+	 * @return
+	 */
+	
+	/*@GetMapping(produces = "application/json", value = "/test")
 	public ResponseEntity<DipendentiDto> test(){
 		DipendentiDto ciccio = dipendentiService.ok();
 		return new ResponseEntity<DipendentiDto>(ciccio, HttpStatus.OK);
@@ -71,7 +123,7 @@ public class DipendentiController {
 	public ResponseEntity<ArrayList<DipendentiDto>> testCC(){
 		ArrayList<DipendentiDto> ciccio = dipendentiService.cc();
 		return new ResponseEntity<ArrayList<DipendentiDto>>(ciccio, HttpStatus.OK);
-	}
+	}*/
 
 	
 	@GetMapping(value = "/id/{idDipendente}", produces = "application/json")

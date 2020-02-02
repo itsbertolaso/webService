@@ -25,8 +25,8 @@ public class DipendentiDao {
 	@Column(name = "surname")
 	private String surname;
 	
-	@Column(name = "tax_code")
-	private String taxCode;
+	@Column(name = "taxcode")
+	private String taxcode;
 	
 	@Column(name = "gender")
 	private String gender;
