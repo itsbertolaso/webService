@@ -24,6 +24,7 @@ public class DipendentiServiceImpl implements DipendentiService{
 	/**
 	 * 
 	 * Ultime modifiche: KAPPA
+	 * OBJ: Bug fixing foreach selTutti()
 	 * N.B.: tutti i precedenti classi/metodi sono stati COMMENTATI e non 
 	 * eliminati
 	 * 
