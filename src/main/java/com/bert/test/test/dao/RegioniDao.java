@@ -1,10 +1,6 @@
 package com.bert.test.test.dao;
 
 
-import java.io.Serializable;
-
-import javax.persistence.Basic;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,7 +12,7 @@ import lombok.Data;
 @Table(name = "regioni")
 @Data
 
-public class RegioniDao implements Serializable{
+public class RegioniDao {
 
 
 	@Id
