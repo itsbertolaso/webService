@@ -63,6 +63,7 @@ public class DipendentiServiceImpl implements DipendentiService{
 		dipendentiRepository.save(d);
 	}
 	
+	
 	/**
 	 * La funzione chiama il DAO e da quello costruisce
 	 * un ArrayList di DTO con solo i dati necessari
@@ -72,17 +73,15 @@ public class DipendentiServiceImpl implements DipendentiService{
 	public ArrayList<DipendentiDto> selTutti(){
 		List<DipendentiDao> dao = this.selTuttiPrivate();
 		ArrayList<DipendentiDto> dto = new ArrayList<DipendentiDto>();
-		int i = 0;
+
 		for(DipendentiDao d : dao) {
 			DipendentiDto temp = new DipendentiDto();
-			temp.setName(dao.get(i).getName());
-			temp.setSurname(dao.get(i).getSurname());
-			temp.setIdDipendente(dao.get(i).getIdDipendente());
-			temp.setTaxcode(dao.get(i).getTaxcode());
+			temp.setName(d.getName());
+			temp.setSurname(d.getSurname());
+			temp.setIdDipendente(d.getIdDipendente());
+			temp.setTaxcode(d.getTaxcode());
 			
 			dto.add(temp);
-			
-			i++;
 		}
 		
 		return dto;
