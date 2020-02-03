@@ -72,15 +72,17 @@ public class DipendentiServiceImpl implements DipendentiService{
 	public ArrayList<DipendentiDto> selTutti(){
 		List<DipendentiDao> dao = this.selTuttiPrivate();
 		ArrayList<DipendentiDto> dto = new ArrayList<DipendentiDto>();
-		
+		int i = 0;
 		for(DipendentiDao d : dao) {
 			DipendentiDto temp = new DipendentiDto();
-			temp.setName(dao.get(0).getName());
-			temp.setSurname(dao.get(0).getSurname());
-			temp.setIdDipendente(dao.get(0).getIdDipendente());
-			temp.setTaxcode(dao.get(0).getTaxcode());
+			temp.setName(dao.get(i).getName());
+			temp.setSurname(dao.get(i).getSurname());
+			temp.setIdDipendente(dao.get(i).getIdDipendente());
+			temp.setTaxcode(dao.get(i).getTaxcode());
 			
 			dto.add(temp);
+			
+			i++;
 		}
 		
 		return dto;
