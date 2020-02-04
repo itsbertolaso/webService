@@ -40,7 +40,7 @@ public class DipendentiServiceImpl implements DipendentiService{
 	}
 
 	public Optional<DipendentiDao> selByIdPrivate(Long id) {
-		return dipendentiRepository.findById(id.toString());
+		return dipendentiRepository.findById(""+id);
 	}
 
 	@Override
@@ -66,11 +66,15 @@ public class DipendentiServiceImpl implements DipendentiService{
 	public DipendentiDto selById(Long id){
 		Optional<DipendentiDao> dao = this.selByIdPrivate(id);
 		DipendentiDto dto = new DipendentiDto();
-
-		dto.setIdDipendente(dao.get().getIdDipendente());
-		dto.setName(dao.get().getName());
-		dto.setSurname(dao.get().getSurname());
-		dto.setTaxcode(dao.get().getTaxcode());
+		
+		try {
+			dto.setIdDipendente(dao.get().getIdDipendente());
+			dto.setName(dao.get().getName());
+			dto.setSurname(dao.get().getSurname());
+			dto.setTaxcode(dao.get().getTaxcode());
+		} catch (Exception e) {
+			dto = null;
+		}
 
 		return dto;
 	}
@@ -84,7 +88,7 @@ public class DipendentiServiceImpl implements DipendentiService{
 	public ArrayList<DipendentiDto> selTutti(){
 		List<DipendentiDao> dao = this.selTuttiPrivate();
 		ArrayList<DipendentiDto> dto = new ArrayList<DipendentiDto>();
-
+		
 		for(DipendentiDao d : dao) {
 			DipendentiDto temp = new DipendentiDto();
 			temp.setName(d.getName());
