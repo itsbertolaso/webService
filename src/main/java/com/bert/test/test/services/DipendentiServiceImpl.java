@@ -20,7 +20,7 @@ public class DipendentiServiceImpl implements DipendentiService{
 	/**
 	 * 
 	 * Ultime modifiche: KAPPA
-	 * OBJ: Bug fixing foreach selTutti()
+	 * OBJ: selTuttiPrivate() diventa effettivamente privata
 	 * N.B.: tutti i precedenti classi/metodi sono stati COMMENTATI e non 
 	 * eliminati
 	 * 
@@ -35,8 +35,7 @@ public class DipendentiServiceImpl implements DipendentiService{
 		return dipendentiRepository.findAll();
 	}*/
 
-	@Override
-	public List<DipendentiDao> selTuttiPrivate(){
+	private List<DipendentiDao> selTuttiPrivate(){
 		return dipendentiRepository.findAll();
 	}
 	

@@ -12,13 +12,14 @@ public interface DipendentiService {
 	/**
 	 * 
 	 * Ultime modifiche: KAPPA
+	 * Modifiche: selTuttiPrivate viene rimosso dall' interfaccia
 	 * N.B.: tutto le precedenti classi/metodi sono stati COMMENTATI e non 
 	 * eliminati
 	 * 
 	 */
 	
 	//public List<DipendentiDao> selTutti();
-	public List<DipendentiDao> selTuttiPrivate();
+	//public List<DipendentiDao> selTuttiPrivate();
 	public ArrayList<DipendentiDto> selTutti();
 	public Optional<DipendentiDao> selById(Long id);
 	public void deleteById(Long id);
