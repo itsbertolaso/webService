@@ -149,7 +149,7 @@ public class DipendentiController {
 		
 	}
 	
-	@GetMapping(value = "/delete/{idDipendente}", produces = "application/json")
+	//@GetMapping(value = "/delete/{idDipendente}", produces = "application/json")
 	@RequestMapping(value = "/delete/{idDipendente}", method = RequestMethod.DELETE)
 	//@CrossOrigin
 	public BaseResponseDto<DipendentiDao> deleteDipendenteById(@PathVariable("idDipendente") String idDipendente){
