@@ -38,10 +38,9 @@ public class DipendentiServiceImpl implements DipendentiService{
 	private List<DipendentiDao> selTuttiPrivate(){
 		return dipendentiRepository.findAll();
 	}
-	
-	@Override
-	public Optional<DipendentiDao> selById(Long id) {
-		return dipendentiRepository.findById(""+id);
+
+	public Optional<DipendentiDao> selByIdPrivate(Long id) {
+		return dipendentiRepository.findById(id.toString());
 	}
 
 	@Override
@@ -58,8 +57,24 @@ public class DipendentiServiceImpl implements DipendentiService{
 	public void updateDipendente(DipendentiDao d) {
 		dipendentiRepository.save(d);
 	}
-	
-	
+
+	/**
+	 * La funzione chiama il DAO e da quello costruisce il DTO
+	 */
+
+	@Override
+	public DipendentiDto selById(Long id){
+		Optional<DipendentiDao> dao = this.selByIdPrivate(id);
+		DipendentiDto dto = new DipendentiDto();
+
+		dto.setIdDipendente(dao.get().getIdDipendente());
+		dto.setName(dao.get().getName());
+		dto.setSurname(dao.get().getSurname());
+		dto.setTaxcode(dao.get().getTaxcode());
+
+		return dto;
+	}
+
 	/**
 	 * La funzione chiama il DAO e da quello costruisce
 	 * un ArrayList di DTO con solo i dati necessari

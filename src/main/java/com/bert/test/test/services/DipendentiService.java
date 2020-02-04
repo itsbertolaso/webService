@@ -20,8 +20,10 @@ public interface DipendentiService {
 	
 	//public List<DipendentiDao> selTutti();
 	//public List<DipendentiDao> selTuttiPrivate();
+
+	public Optional<DipendentiDao> selByIdPrivate(Long id);
+	public DipendentiDto selById(Long id);
 	public ArrayList<DipendentiDto> selTutti();
-	public Optional<DipendentiDao> selById(Long id);
 	public void deleteById(Long id);
 	public void createDipendente(DipendentiDao d);
 	public void updateDipendente(DipendentiDao d);

@@ -1,4 +1,5 @@
 package com.bert.test.test.controller;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bert.test.test.dao.CittaDao;
 import com.bert.test.test.dto.BaseResponseDto;
+import com.bert.test.test.dto.CittaDto;
 import com.bert.test.test.services.CittaService;
 
 
@@ -22,11 +24,11 @@ public class CittaController {
 	CittaService cittaService;
 	
 	@GetMapping(produces = "application/json")
-	public BaseResponseDto<List<CittaDao>> allCity(){
+	public BaseResponseDto<ArrayList<CittaDto>> allCity(){
 		
-		List<CittaDao> cities = cittaService.selTutti();
+		ArrayList<CittaDto> cities = cittaService.selTutti();
 		
-		BaseResponseDto<List<CittaDao>> res = new BaseResponseDto<List<CittaDao>>();
+		BaseResponseDto<ArrayList<CittaDto>> res = new BaseResponseDto<ArrayList<CittaDto>>();
 		
 		res.setTimestamp(new Date());
 		res.setStatus(HttpStatus.OK.value());

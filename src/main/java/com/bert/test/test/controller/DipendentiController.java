@@ -31,6 +31,7 @@ public class DipendentiController {
 	/**
 	 * 
 	 * Ultime modifiche: KAPPA
+	 * OBJ: selById is now 	using DTO
 	 * N.B.: tutto le precedenti classi/metodi sono stati COMMENTATI e non 
 	 * eliminati
 	 * 
@@ -121,25 +122,26 @@ public class DipendentiController {
 
 	
 	@GetMapping(value = "/id/{idDipendente}", produces = "application/json")
-	public BaseResponseDto<DipendentiDao> listDipendentiById(@PathVariable("idDipendente") String idDipendente){
+	public BaseResponseDto<DipendentiDto> listDipendentiById(@PathVariable("idDipendente") String idDipendente){
 		
-		BaseResponseDto<DipendentiDao> response = new BaseResponseDto<DipendentiDao>();
+		BaseResponseDto<DipendentiDto> response = new BaseResponseDto<DipendentiDto>();
 		logger.info("****** Cerca dipendente con id "+ idDipendente+" *******");
 
-		Optional<DipendentiDao> dipendente = dipendentiService.selById(Long.parseLong(idDipendente));		
-		DipendentiDao dip;
+		//Optional<DipendentiDao> dipendente = dipendentiService.selById(Long.parseLong(idDipendente));
+		DipendentiDto dipendente = dipendentiService.selById(Long.parseLong(idDipendente));
+		//DipendentiDao dip;
 		
-		try {
+		/*try {
 			dip = dipendente.get();
 		}
 		catch (NoSuchElementException ex) {
 			dip = null;
-		}
+		}*/
 		
 		response.setTimestamp(new Date());
 		response.setStatus(HttpStatus.OK.value());
 		response.setMessage("SERVIZIO_ELABORATO_CORRETTAMENTE");
-		response.setResponse(dip);
+		response.setResponse(dipendente);
 	
 		return response;
 		
@@ -187,8 +189,9 @@ public class DipendentiController {
 		BaseResponseDto<DipendentiDao> response = new BaseResponseDto<DipendentiDao>();
 		logger.info("****** Aggiorna dipendente " + idDipendente + "******");
 		
-		Optional<DipendentiDao> dipendente = dipendentiService.selById(idDipendente);
-		
+		Optional<DipendentiDao> dipendente = dipendentiService.selByIdPrivate(idDipendente);
+		//DipendentiDto dipendente = dipendentiService.selById(idDipendente);
+
 //		@SuppressWarnings("unused")
 //		DipendentiDao temp;
 		

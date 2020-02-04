@@ -70,6 +70,8 @@ public class CittaServiceImpl implements CittaService{
 			temp.setName(d.getName());
 			temp.setIdCity(d.getIdCity());
 			temp.setIdProv(d.getIdProv());
+			
+			dto.add(temp);
 		}
 
 		return dto;
