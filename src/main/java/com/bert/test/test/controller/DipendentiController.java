@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bert.test.test.dao.DipendentiDao;
@@ -149,7 +150,8 @@ public class DipendentiController {
 	}
 	
 	@GetMapping(value = "/delete/{idDipendente}", produces = "application/json")
-	@CrossOrigin
+	@RequestMapping(value = "/delete/{idDipendente}", method = RequestMethod.DELETE)
+	//@CrossOrigin
 	public BaseResponseDto<DipendentiDao> deleteDipendenteById(@PathVariable("idDipendente") String idDipendente){
 		
 		BaseResponseDto<DipendentiDao> response = new BaseResponseDto<DipendentiDao>();
