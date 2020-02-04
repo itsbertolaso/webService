@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -148,6 +149,7 @@ public class DipendentiController {
 	}
 	
 	@GetMapping(value = "/delete/{idDipendente}", produces = "application/json")
+	@CrossOrigin
 	public BaseResponseDto<DipendentiDao> deleteDipendenteById(@PathVariable("idDipendente") String idDipendente){
 		
 		BaseResponseDto<DipendentiDao> response = new BaseResponseDto<DipendentiDao>();
@@ -169,6 +171,7 @@ public class DipendentiController {
 	}
 	
 	@PostMapping(value = "/create", produces = "application/json")
+	@CrossOrigin
 	public BaseResponseDto<DipendentiDao> createDipendente(@RequestBody DipendentiDao dipendente) {
 		
 		BaseResponseDto<DipendentiDao> response = new BaseResponseDto<DipendentiDao>();
@@ -206,7 +209,8 @@ public class DipendentiController {
 		/*
 		 * Bisogna decidere se usare if/else o try/catch
 		 */
-	/*	
+		
+		/*	
 		try {
 			temp = dipendente.get();
 			dip.setIdDipendente(idDipendente);
@@ -216,7 +220,7 @@ public class DipendentiController {
 		catch (NoSuchElementException ex) {
 			response.setResponse("Not found");
 		}
-	*/
+		 */
 		
 		response.setTimestamp(new Date());
 		response.setStatus(HttpStatus.OK.value());
