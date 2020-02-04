@@ -11,7 +11,7 @@ public interface CittaService {
 	
 	//public List<CittaDao> selTuttiPrivate();
 	public Optional<CittaDao> selByIdCitta(Long id);
-	//public List<CittaDao> selByIdProv(String id);
+//	public List<CittaDao> selByIdProv(String id);
 	public ArrayList<CittaDto> selTuttiIds();
 	public ArrayList<CittaDto> selTutti();
 

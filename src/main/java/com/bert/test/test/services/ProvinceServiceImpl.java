@@ -21,11 +21,11 @@ public class ProvinceServiceImpl implements ProvinceService{
 		return provinceRepository.findAll();
 	}
 
-	@Override
-	public List<ProvinceDao> selByIdRegione(String idRegione) {
-		// TODO Auto-generated method stub
-		return provinceRepository.findByIdRegione(idRegione);
-	}
+//	@Override
+//	public List<ProvinceDao> selByIdRegione(String idRegione) {
+//		// TODO Auto-generated method stub
+//		return provinceRepository.findByIdRegione(idRegione);
+//	}
 	
 	
 }

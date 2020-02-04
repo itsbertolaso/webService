@@ -36,18 +36,18 @@ public class ProvinceController {
 		return res;
 	}
 	
-	@GetMapping(produces = "application/json", value = "/regione/{idRegione}")
-	public BaseResponseDto<List<ProvinceDao>> findByIdRegione(@PathVariable("idRegione") String id){
-		
-		List<ProvinceDao> province = provinceService.selByIdRegione(id);
-		
-		BaseResponseDto<List<ProvinceDao>> res = new BaseResponseDto<List<ProvinceDao>>();
-		
-		res.setTimestamp(new Date());
-		res.setStatus(HttpStatus.OK.value());
-		res.setMessage("SERVIZIO_ELABORATO_CORRETTAMENTE");
-		res.setResponse(province);
-		
-		return res;
-	}
+//	@GetMapping(produces = "application/json", value = "/regione/{idRegione}")
+//	public BaseResponseDto<List<ProvinceDao>> findByIdRegione(@PathVariable("idRegione") String id){
+//		
+//		List<ProvinceDao> province = provinceService.selByIdRegione(id);
+//		
+//		BaseResponseDto<List<ProvinceDao>> res = new BaseResponseDto<List<ProvinceDao>>();
+//		
+//		res.setTimestamp(new Date());
+//		res.setStatus(HttpStatus.OK.value());
+//		res.setMessage("SERVIZIO_ELABORATO_CORRETTAMENTE");
+//		res.setResponse(province);
+//		
+//		return res;
+//	}
 }
