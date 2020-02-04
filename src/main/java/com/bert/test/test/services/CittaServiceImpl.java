@@ -1,10 +1,12 @@
 package com.bert.test.test.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import com.bert.test.test.dto.CittaDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +20,7 @@ public class CittaServiceImpl implements CittaService{
 	@Autowired
 	CittaRepository cittaRep;
 	
-	@Override
-	public List<CittaDao> selTutti() {
+	private List<CittaDao> selTuttiPrivate() {
 		return cittaRep.findAll();
 	}
 
@@ -33,6 +34,45 @@ public class CittaServiceImpl implements CittaService{
 	public List<CittaDao> selByIdProv(String id) {
 		// TODO Auto-generated method stub
 		return cittaRep.findByIdProv(id);
+	}
+
+	/**
+	 * Ritorna una lista di città con SOLO il nome
+	 * @return
+	 */
+
+ 	@Override
+	public ArrayList<CittaDto> selTuttiIds(){
+		List<CittaDao> dao = this.selTuttiPrivate();
+		ArrayList<CittaDto> dto = new ArrayList<CittaDto>();
+
+		for(CittaDao d : dao){
+			CittaDto temp = new CittaDto();
+			temp.setName(d.getName());
+			dto.add(temp);
+		}
+
+		return dto;
+	}
+
+	/**
+	 * Ritorna la lista di città con il suo id e quello della provincia
+	 * @return
+	 */
+
+	@Override
+	public  ArrayList<CittaDto> selTutti(){
+		ArrayList<CittaDto> dto = new ArrayList<CittaDto>();
+		List<CittaDao> dao = this.selTuttiPrivate();
+
+		for(CittaDao d : dao){
+			CittaDto temp = new CittaDto();
+			temp.setName(d.getName());
+			temp.setIdCity(d.getIdCity());
+			temp.setIdProv(d.getIdProv());
+		}
+
+		return dto;
 	}
 	
 }
