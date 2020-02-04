@@ -19,6 +19,9 @@ public class DipendentiDto {
 	
 	@NotNull
 	private String taxcode;
+	
+	@NotNull
+	private String city;
 
 }
 

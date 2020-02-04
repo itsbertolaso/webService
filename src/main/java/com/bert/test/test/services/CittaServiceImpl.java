@@ -30,11 +30,11 @@ public class CittaServiceImpl implements CittaService{
 		return cittaRep.findById(""+id);
 	}
 
-	@Override
-	public List<CittaDao> selByIdProv(String id) {
-		// TODO Auto-generated method stub
-		return cittaRep.findByIdProv(id);
-	}
+//	@Override
+//	public List<CittaDao> selByIdProv(String id) {
+//		// TODO Auto-generated method stub
+//		return cittaRep.findByIdProv(id);
+//	}
 
 	/**
 	 * Ritorna una lista di città con SOLO il nome
@@ -69,7 +69,7 @@ public class CittaServiceImpl implements CittaService{
 			CittaDto temp = new CittaDto();
 			temp.setName(d.getName());
 			temp.setIdCity(d.getIdCity());
-			temp.setIdProv(d.getIdProv());
+			temp.setProvincia(d.getProvincia().getDescription());
 			
 			dto.add(temp);
 		}

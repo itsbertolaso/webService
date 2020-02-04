@@ -39,18 +39,18 @@ public class CittaController {
 		return res;
 	}
 	
-	@GetMapping(produces = "application/json", value = "/province/{idProvince}")
-	public BaseResponseDto<List<CittaDao>> findByProvinceId(@PathVariable("idProvince") String id){
-		
-		List<CittaDao> cities = cittaService.selByIdProv(id);
-		
-		BaseResponseDto<List<CittaDao>> res = new BaseResponseDto<List<CittaDao>>();
-		
-		res.setTimestamp(new Date());
-		res.setStatus(HttpStatus.OK.value());
-		res.setMessage("SERVIZIO_ELABORATO_CORRETTAMENTE");
-		res.setResponse(cities);
-		
-		return res;
-	}
+//	@GetMapping(produces = "application/json", value = "/province/{idProvince}")
+//	public BaseResponseDto<List<CittaDao>> findByProvinceId(@PathVariable("idProvince") String id){
+//		
+//		List<CittaDao> cities = cittaService.selByIdProv(id);
+//		
+//		BaseResponseDto<List<CittaDao>> res = new BaseResponseDto<List<CittaDao>>();
+//		
+//		res.setTimestamp(new Date());
+//		res.setStatus(HttpStatus.OK.value());
+//		res.setMessage("SERVIZIO_ELABORATO_CORRETTAMENTE");
+//		res.setResponse(cities);
+//		
+//		return res;
+//	}
 }

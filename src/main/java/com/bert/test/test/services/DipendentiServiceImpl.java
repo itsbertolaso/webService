@@ -72,6 +72,7 @@ public class DipendentiServiceImpl implements DipendentiService{
 			dto.setName(dao.get().getName());
 			dto.setSurname(dao.get().getSurname());
 			dto.setTaxcode(dao.get().getTaxcode());
+			dto.setCity(dao.get().getCity().getName());
 		} catch (Exception e) {
 			dto = null;
 		}
