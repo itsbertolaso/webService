@@ -14,10 +14,10 @@ public class CittaDao {
 	@Id
 	@Column(name = "id_city")
 	private Long idCity;
-	
+
 	@Column(name = "description")
 	private String name;
-	
+
 	@Column(name = "id_prov")
 	private String idProv;
 }

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.bert.test.test.dto.CittaDto;
+import com.bert.test.test.repository.CittaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,21 +17,23 @@ import com.bert.test.test.repository.DipendentiRepository;
 @Service
 @Transactional
 public class DipendentiServiceImpl implements DipendentiService{
-	
-	
+
+
 	/**
-	 * 
+	 *
 	 * Ultime modifiche: KAPPA
 	 * OBJ: selTuttiPrivate() diventa effettivamente privata
-	 * N.B.: tutti i precedenti classi/metodi sono stati COMMENTATI e non 
+	 * N.B.: tutti i precedenti classi/metodi sono stati COMMENTATI e non
 	 * eliminati
-	 * 
+	 *
 	 */
-	
-	
+
+
 	@Autowired
 	DipendentiRepository dipendentiRepository;
-	
+  @Autowired
+  CittaService cittaService;
+
 	/*@Override
 	public List<DipendentiDao> selTutti() {
 		return dipendentiRepository.findAll();
@@ -66,7 +70,7 @@ public class DipendentiServiceImpl implements DipendentiService{
 	public DipendentiDto selById(Long id){
 		Optional<DipendentiDao> dao = this.selByIdPrivate(id);
 		DipendentiDto dto = new DipendentiDto();
-		
+
 		try {
 			dto.setIdDipendente(dao.get().getIdDipendente());
 			dto.setName(dao.get().getName());
@@ -88,17 +92,18 @@ public class DipendentiServiceImpl implements DipendentiService{
 	public ArrayList<DipendentiDto> selTutti(){
 		List<DipendentiDao> dao = this.selTuttiPrivate();
 		ArrayList<DipendentiDto> dto = new ArrayList<DipendentiDto>();
-		
+
 		for(DipendentiDao d : dao) {
 			DipendentiDto temp = new DipendentiDto();
+      CittaDto cityDto = cittaService.selById(d.getCity().getIdCity());
 			temp.setName(d.getName());
 			temp.setSurname(d.getSurname());
 			temp.setIdDipendente(d.getIdDipendente());
-			temp.setTaxcode(d.getTaxcode());
-			
+			temp.setTaxcode(d.getTaxcode()); // potrebbe diventare inutile con l' aggiunta di città
+			temp.setCitta(cityDto);
 			dto.add(temp);
 		}
-		
+
 		return dto;
 	}
 }

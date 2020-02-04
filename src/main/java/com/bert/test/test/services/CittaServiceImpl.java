@@ -19,7 +19,7 @@ public class CittaServiceImpl implements CittaService{
 
 	@Autowired
 	CittaRepository cittaRep;
-	
+
 	private List<CittaDao> selTuttiPrivate() {
 		return cittaRep.findAll();
 	}
@@ -27,7 +27,7 @@ public class CittaServiceImpl implements CittaService{
 	@Override
 	public Optional<CittaDao> selByIdCitta(Long id) {
 		// TODO Auto-generated method stub
-		return cittaRep.findById(""+id);
+		return cittaRep.findById(id);
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class CittaServiceImpl implements CittaService{
 	}
 
 	/**
-	 * Ritorna una lista di città con SOLO il nome
+	 * Ritorna la lista di città con il suo id e quello della provincia
 	 * @return
 	 */
 
@@ -56,7 +56,7 @@ public class CittaServiceImpl implements CittaService{
 	}
 
 	/**
-	 * Ritorna la lista di città con il suo id e quello della provincia
+   * Ritorna una lista di città con SOLO il nome
 	 * @return
 	 */
 
@@ -70,11 +70,25 @@ public class CittaServiceImpl implements CittaService{
 			temp.setName(d.getName());
 			temp.setIdCity(d.getIdCity());
 			temp.setIdProv(d.getIdProv());
-			
+
 			dto.add(temp);
 		}
 
 		return dto;
 	}
-	
+
+	@Override
+  public CittaDto selById(Long id){
+	  //Optional<CittaDao> dao = this.selByIdCitta(id);
+    Optional<CittaDao> dao = cittaRep.findById(id);
+	  CittaDto dto = new CittaDto();
+	  dto.setIdProv(dao.get().getIdProv());
+	  dto.setName(dao.get().getName());
+	  dto.setIdCity(dao.get().getIdCity());
+
+	  System.out.println("DTO: " + dto.toString());
+
+	  return dto;
+  }
+
 }
