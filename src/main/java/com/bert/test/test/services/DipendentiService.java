@@ -1,7 +1,6 @@
 package com.bert.test.test.services;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import com.bert.test.test.dao.DipendentiDao;
@@ -17,9 +16,6 @@ public interface DipendentiService {
 	 * eliminati
 	 * 
 	 */
-	
-	//public List<DipendentiDao> selTutti();
-	//public List<DipendentiDao> selTuttiPrivate();
 
 	public Optional<DipendentiDao> selByIdPrivate(Long id);
 	public DipendentiDto selById(Long id);

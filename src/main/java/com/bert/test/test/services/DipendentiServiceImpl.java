@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.bert.test.test.dto.CittaDto;
-import com.bert.test.test.repository.CittaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bert.test.test.dao.DipendentiDao;
+import com.bert.test.test.dto.CittaDto;
 import com.bert.test.test.dto.DipendentiDto;
 import com.bert.test.test.repository.DipendentiRepository;
 
@@ -96,10 +95,10 @@ public class DipendentiServiceImpl implements DipendentiService{
 		for(DipendentiDao d : dao) {
 			DipendentiDto temp = new DipendentiDto();
 
-      CittaDto cityDto = new CittaDto();
-      cityDto.setIdCity(d.getCity().getIdCity());
-      cityDto.setName(d.getCity().getName());
-      cityDto.setIdProv(d.getCity().getIdProv());
+	        CittaDto cityDto = new CittaDto();
+	        cityDto.setIdCity(d.getCity().getIdCity());
+	        cityDto.setName(d.getCity().getName());
+	        cityDto.setIdProv(d.getCity().getIdProv());
 
 			temp.setName(d.getName());
 			temp.setSurname(d.getSurname());

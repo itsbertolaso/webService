@@ -2,7 +2,6 @@ package com.bert.test.test.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.slf4j.Logger;

@@ -2,15 +2,14 @@ package com.bert.test.test.dao;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.ForeignKey;
 
-import com.bert.test.test.dto.CittaDto;
 import lombok.Data;
 
 @Entity
@@ -41,5 +40,4 @@ public class DipendentiDao {
 	@ManyToOne
 	@JoinColumn(name = "city", foreignKey = @ForeignKey(name = "dipendenti_ibfk_1"))
 	private CittaDao city;
-
 }
