@@ -17,10 +17,11 @@ public class RegioniDao {
 
 	@Id
 	@Column(name = "id_region")
-	private String idRegion;
+	private Long idRegion;
 	
 	@Column(name = "description")
 	private String description;
+	
 	@Column(name = "iso_coun")
 	private String isoCountry;
 }

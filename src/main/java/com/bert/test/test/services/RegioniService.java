@@ -1,11 +1,11 @@
 package com.bert.test.test.services;
 
-import java.util.List;
+import java.util.ArrayList;
 
-import com.bert.test.test.dao.RegioniDao;
+import com.bert.test.test.dto.RegioniDto;
 
 public interface RegioniService {
 	
-	public List<RegioniDao> selTutti();
-
+	public ArrayList<RegioniDto> selTutti();
+	public RegioniDto selRegioneById(Long id);
 }

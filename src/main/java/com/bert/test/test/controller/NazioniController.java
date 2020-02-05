@@ -13,15 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bert.test.test.dto.BaseResponseDto;
 import com.bert.test.test.dto.NazioniDto;
-import com.bert.test.test.services.CittaService;
 import com.bert.test.test.services.NazioniService;
 
 @RestController
 @RequestMapping(value = "api/nazioni")
 public class NazioniController {
-
-		@Autowired
-		CittaService cittaService;
 		
 		@Autowired
 		NazioniService nazioniService;
