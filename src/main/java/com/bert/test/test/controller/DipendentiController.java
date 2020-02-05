@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -187,7 +186,8 @@ public class DipendentiController {
 		return response;
 	}
 	
-	@PutMapping(value = "/update/{idDipendente}", produces = "application/json")
+	//@PutMapping(value = "/update/{idDipendente}", produces = "application/json")
+	@RequestMapping(value = "/update/{idDipendente}", method = RequestMethod.PUT)
 	public BaseResponseDto<DipendentiDao> updateDipendente(@RequestBody DipendentiDao dip, @PathVariable long idDipendente) {
 		
 		BaseResponseDto<DipendentiDao> response = new BaseResponseDto<DipendentiDao>();
