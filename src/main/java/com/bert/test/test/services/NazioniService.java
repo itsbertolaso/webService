@@ -1,11 +1,11 @@
 package com.bert.test.test.services;
 
-import java.util.List;
+import java.util.ArrayList;
 
-import com.bert.test.test.dao.NazioniDao;
+import com.bert.test.test.dto.NazioniDto;
 
 public interface NazioniService {
 	
-	public List<NazioniDao> selTutti();
+	public ArrayList<NazioniDto> selTutti();
 	public NazioniDto selNazioneById(String id);
 }

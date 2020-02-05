@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bert.test.test.dao.CittaDao;
 import com.bert.test.test.dto.BaseResponseDto;
-import com.bert.test.test.dto.CittaDto;
+import com.bert.test.test.dto.NazioniDto;
 import com.bert.test.test.services.CittaService;
 import com.bert.test.test.services.NazioniService;
 
@@ -43,11 +42,11 @@ public class NazioniController {
 		}
 
 		@GetMapping(produces = "application/json", value = "/id/{idNazione}")
-		public BaseResponseDto<List<NazioniDao>> findByNazioneeId(@PathVariable("idNazione") String id){
+		public BaseResponseDto<List<NazioniDto>> findByNazioneId(@PathVariable("idNazione") String id){
 
-			List<NazioniDao> nazioni = nazionService.selNazionebyId(id);
+			NazioniDto nazioni = nazioniService.selNazioneById(id);
 
-			BaseResponseDto<List<NazioniDao>> res = new BaseResponseDto<List<NazioniDap>>();
+			BaseResponseDto<List<NazioniDto>> res = new BaseResponseDto<List<NazioniDto>>();
 
 			res.setTimestamp(new Date());
 			res.setStatus(HttpStatus.OK.value());
