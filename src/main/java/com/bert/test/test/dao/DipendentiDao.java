@@ -10,13 +10,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.ForeignKey;
 
+import com.bert.test.test.dto.CittaDto;
 import lombok.Data;
 
 @Entity
 @Table(name = "dipendenti")
 @Data
 public class DipendentiDao {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -24,19 +25,19 @@ public class DipendentiDao {
 
 	@Column(name = "name")
 	private String name;
-	
+
 	@Column(name = "surname")
 	private String surname;
-	
+
 	@Column(name = "taxcode")
 	private String taxcode;
-	
+
 	@Column(name = "gender")
 	private String gender;
-		
+
 	@Column(name = "address")
 	private String address;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "city", foreignKey = @ForeignKey(name = "dipendenti_ibfk_1"))
 	private CittaDao city;

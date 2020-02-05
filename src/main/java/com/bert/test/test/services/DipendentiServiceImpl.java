@@ -99,8 +99,9 @@ public class DipendentiServiceImpl implements DipendentiService{
 			temp.setName(d.getName());
 			temp.setSurname(d.getSurname());
 			temp.setIdDipendente(d.getIdDipendente());
-			temp.setTaxcode(d.getTaxcode()); // potrebbe diventare inutile con l' aggiunta di città
+			temp.setTaxcode(d.getTaxcode());
 			temp.setCitta(cityDto);
+
 			dto.add(temp);
 		}
 
