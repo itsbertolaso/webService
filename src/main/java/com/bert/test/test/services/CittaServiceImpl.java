@@ -24,17 +24,43 @@ public class CittaServiceImpl implements CittaService{
 		return cittaRep.findAll();
 	}
 
-	@Override
+  /**
+   * Kappa
+   * Rimuovo il metodo che usa i DAO perchè è integrato nel
+   * metodo che usa il DTO
+   * @param id
+   * @return
+   */
+
+	/*@Override
 	public Optional<CittaDao> selByIdCitta(Long id) {
 		// TODO Auto-generated method stub
 		return cittaRep.findById(id);
-	}
+	}*/
 
-	@Override
-	public List<CittaDao> selByIdProv(String id) {
-		// TODO Auto-generated method stub
-		return cittaRep.findByIdProv(id);
-	}
+  /**
+   * Kappa
+   * Ritorna la lista delle città di una provincia
+   * Usa i DTO
+   */
+
+  @Override
+  public ArrayList<CittaDto> selByIdProv(String id){
+    List<CittaDao> dao = cittaRep.findByIdProv(id);
+    ArrayList<CittaDto> dto = new ArrayList<CittaDto>();
+
+    for(CittaDao d : dao){
+      CittaDto temp = new CittaDto();
+      temp.setIdProv(d.getIdProv());
+      temp.setName(d.getName());
+      temp.setIdCity(d.getIdCity());
+
+      dto.add(temp);
+    }
+
+    return dto;
+  }
+
 
 	/**
 	 * Ritorna la lista di città con il suo id e quello della provincia
@@ -79,14 +105,11 @@ public class CittaServiceImpl implements CittaService{
 
 	@Override
   public CittaDto selById(Long id){
-	  //Optional<CittaDao> dao = this.selByIdCitta(id);
     Optional<CittaDao> dao = cittaRep.findById(id);
 	  CittaDto dto = new CittaDto();
 	  dto.setIdProv(dao.get().getIdProv());
 	  dto.setName(dao.get().getName());
 	  dto.setIdCity(dao.get().getIdCity());
-
-	  System.out.println("DTO: " + dto.toString());
 
 	  return dto;
   }

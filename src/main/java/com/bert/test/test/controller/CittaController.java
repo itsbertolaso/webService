@@ -39,16 +39,16 @@ public class CittaController {
 	}
 
 	@GetMapping(produces = "application/json", value = "/id/{idProvince}")
-	public BaseResponseDto<List<CittaDao>> findByProvinceId(@PathVariable("idProvince") String id){
+	public BaseResponseDto<ArrayList<CittaDto>> findByProvinceId(@PathVariable("idProvince") String id){
 
-		List<CittaDao> cities = cittaService.selByIdProv(id);
+		ArrayList<CittaDto> citta = this.cittaService.selByIdProv(id);
 
-		BaseResponseDto<List<CittaDao>> res = new BaseResponseDto<List<CittaDao>>();
+		BaseResponseDto<ArrayList<CittaDto>> res = new BaseResponseDto<ArrayList<CittaDto>>();
 
 		res.setTimestamp(new Date());
 		res.setStatus(HttpStatus.OK.value());
 		res.setMessage("SERVIZIO_ELABORATO_CORRETTAMENTE");
-		res.setResponse(cities);
+		res.setResponse(citta);
 
 		return res;
 	}
