@@ -48,4 +48,9 @@ public class RegioniServiceImpl implements RegioniService {
 		dto.setIsoCountry(dao.get().getIsoCountry());
 		return dto;
 	}
+
+	@Override
+	public List<RegioniDao> selByIdIso(String iso_coun) {
+		return regioniRepository.findByIsoCountry(iso_coun);
+	}
 }

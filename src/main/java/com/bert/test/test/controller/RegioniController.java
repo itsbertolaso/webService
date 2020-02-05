@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bert.test.test.dao.RegioniDao;
 import com.bert.test.test.dto.BaseResponseDto;
 import com.bert.test.test.dto.RegioniDto;
 import com.bert.test.test.services.RegioniService;
@@ -49,6 +50,21 @@ public class RegioniController {
 		res.setMessage("SERVIZIO_ELABORATO_CORRETTAMENTE");
 		res.setResponse(regione);
 
+		return res;
+	}
+	
+	@GetMapping(produces = "application/json", value = "/nazione/{iso_coun}")
+	public BaseResponseDto<List<RegioniDao>> findByIso(@PathVariable("iso_coun") String iso) {
+		
+		List<RegioniDao> regioni = regioniService.selByIdIso(iso);
+		
+		BaseResponseDto<List<RegioniDao>> res = new BaseResponseDto<List<RegioniDao>>();
+		
+		res.setTimestamp(new Date());
+		res.setStatus(HttpStatus.OK.value());
+		res.setMessage("SERVIZIO_ELABORATO_CORRETTAMENTE");
+		res.setResponse(regioni);
+		
 		return res;
 	}
 }
