@@ -95,7 +95,12 @@ public class DipendentiServiceImpl implements DipendentiService{
 
 		for(DipendentiDao d : dao) {
 			DipendentiDto temp = new DipendentiDto();
-      CittaDto cityDto = cittaService.selById(d.getCity().getIdCity());
+
+      CittaDto cityDto = new CittaDto();
+      cityDto.setIdCity(d.getCity().getIdCity());
+      cityDto.setName(d.getCity().getName());
+      cityDto.setIdProv(d.getCity().getIdProv());
+
 			temp.setName(d.getName());
 			temp.setSurname(d.getSurname());
 			temp.setIdDipendente(d.getIdDipendente());
