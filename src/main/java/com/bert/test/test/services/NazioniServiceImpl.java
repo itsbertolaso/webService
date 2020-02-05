@@ -21,4 +21,8 @@ public class NazioniServiceImpl implements NazioniService{
 		return nazioniRepository.findAll();
 	}
 
+	@Override
+	public NazioniDto selNazioneById(String id) {
+		return null;
+	}
 }
