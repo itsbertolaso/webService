@@ -38,7 +38,7 @@ public class CittaController {
 		return res;
 	}
 
-	@GetMapping(produces = "application/json", value = "/id/{idProvince}")
+	@GetMapping(produces = "application/json", value = "/idProv/{idProvince}")
 	public BaseResponseDto<ArrayList<CittaDto>> findByProvinceId(@PathVariable("idProvince") String id){
 
 		ArrayList<CittaDto> citta = this.cittaService.selByIdProv(id);
