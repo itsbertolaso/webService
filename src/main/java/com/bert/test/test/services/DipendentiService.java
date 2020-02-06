@@ -18,6 +18,9 @@ public interface DipendentiService {
 	 */
 
 	public Optional<DipendentiDao> selByIdPrivate(Long id);
+	public ArrayList<DipendentiDto> selByName(String name);
+	public ArrayList<DipendentiDto> selBySurname(String surname);
+	public ArrayList<DipendentiDto> selByTaxcode(String taxcode);
 	public DipendentiDto selById(Long id);
 	public ArrayList<DipendentiDto> selTutti();
 	public void deleteById(Long id);

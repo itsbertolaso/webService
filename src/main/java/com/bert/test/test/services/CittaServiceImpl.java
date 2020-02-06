@@ -95,9 +95,8 @@ public class CittaServiceImpl implements CittaService{
 
 		for(CittaDao d : dao){
 			CittaDto temp = new CittaDto();
-      ProvinceDto proDto = provinceService.selById(d.getIdProv());
-
-      temp.setIdProv(proDto.getIdProvincia());
+			ProvinceDto proDto = provinceService.selById(d.getIdProv());
+			temp.setIdProv(proDto.getIdProvincia());
 			temp.setName(d.getName());
 			temp.setIdCity(d.getIdCity());
 			temp.setProvince(proDto);

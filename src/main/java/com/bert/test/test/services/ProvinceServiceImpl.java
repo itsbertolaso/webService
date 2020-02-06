@@ -34,6 +34,7 @@ public class ProvinceServiceImpl implements ProvinceService{
       temp.setDescription(d.getDescription());
       temp.setIdRegione(d.getIdRegione());
       temp.setIdProvincia(d.getIdProvincia());
+      dto.add(temp);
     }
 
     return dto;

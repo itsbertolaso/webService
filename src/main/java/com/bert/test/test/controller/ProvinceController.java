@@ -42,7 +42,7 @@ public class ProvinceController {
 	public BaseResponseDto<ArrayList<ProvinceDto>> findByIdRegione(@PathVariable("idRegione") String id){
 
     ArrayList<ProvinceDto> province = provinceService.selByIdRegione(id);
-
+    
 		BaseResponseDto<ArrayList<ProvinceDto>> res = new BaseResponseDto<ArrayList<ProvinceDto>>();
 
 		res.setTimestamp(new Date());

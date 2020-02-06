@@ -126,8 +126,6 @@ public class DipendentiController {
 		
 		BaseResponseDto<DipendentiDto> response = new BaseResponseDto<DipendentiDto>();
 		logger.info("****** Cerca dipendente con id "+ idDipendente+" *******");
-
-		//Optional<DipendentiDao> dipendente = dipendentiService.selById(Long.parseLong(idDipendente));
 		DipendentiDto dipendente = dipendentiService.selById(Long.parseLong(idDipendente));
 		//DipendentiDao dip;
 		
@@ -229,4 +227,76 @@ public class DipendentiController {
 		
 		return response;
 	}
+	
+	
+	@GetMapping(produces = "application/json", value = "/name/{nome}")
+	public BaseResponseDto<ArrayList<DipendentiDto>> getByName(@PathVariable("nome") String nome){
+		
+		BaseResponseDto<ArrayList<DipendentiDto>> response = new BaseResponseDto<>();
+		logger.info("****** Otteniamo i dipendenti con nome "+ nome + "*******");
+		
+		ArrayList<DipendentiDto> dipendente = dipendentiService.selByName(nome);
+		
+		response.setTimestamp(new Date());
+		response.setStatus(HttpStatus.OK.value());
+		response.setMessage("SERVIZIO_ELABORATO_CORRETTAMENTE");
+		
+		if (dipendente.isEmpty()) {
+			response.setResponse(null);
+		}
+		else {
+			logger.info("Numero dei record: " + dipendente.size());
+			response.setResponse(dipendente);
+		}
+		
+		return response;		
+	}
+	
+	
+	@GetMapping(produces = "application/json", value = "/surname/{surname}")
+	public BaseResponseDto<ArrayList<DipendentiDto>> getBySurname(@PathVariable("surname") String surname){
+		
+		BaseResponseDto<ArrayList<DipendentiDto>> response = new BaseResponseDto<>();
+		logger.info("****** Otteniamo i dipendenti con cognome "+ surname + "*******");
+		
+		ArrayList<DipendentiDto> dipendente = dipendentiService.selByName(surname);
+		
+		response.setTimestamp(new Date());
+		response.setStatus(HttpStatus.OK.value());
+		response.setMessage("SERVIZIO_ELABORATO_CORRETTAMENTE");
+		
+		if (dipendente.isEmpty()) {
+			response.setResponse(null);
+		}
+		else {
+			logger.info("Numero dei record: " + dipendente.size());
+			response.setResponse(dipendente);
+		}
+		
+		return response;		
+	}
+	
+	@GetMapping(produces = "application/json", value = "/taxcode/{tax}")
+	public BaseResponseDto<ArrayList<DipendentiDto>> getByTax(@PathVariable("tax") String tax){
+		
+		BaseResponseDto<ArrayList<DipendentiDto>> response = new BaseResponseDto<>();
+		logger.info("****** Otteniamo i dipendenti con taxcode "+ tax + "*******");
+		
+		ArrayList<DipendentiDto> dipendente = dipendentiService.selByName(tax);
+		
+		response.setTimestamp(new Date());
+		response.setStatus(HttpStatus.OK.value());
+		response.setMessage("SERVIZIO_ELABORATO_CORRETTAMENTE");
+		
+		if (dipendente.isEmpty()) {
+			response.setResponse(null);
+		}
+		else {
+			logger.info("Numero dei record: " + dipendente.size());
+			response.setResponse(dipendente);
+		}
+		
+		return response;		
+	}
+	
 }

@@ -39,7 +39,7 @@ public class DipendentiServiceImpl implements DipendentiService{
 	}*/
 
 	private List<DipendentiDao> selTuttiPrivate(){
-		return dipendentiRepository.findAll();
+		return dipendentiRepository.findAllByOrderBySurname();
 	}
 
 	public Optional<DipendentiDao> selByIdPrivate(Long id) {
@@ -75,6 +75,11 @@ public class DipendentiServiceImpl implements DipendentiService{
 			dto.setName(dao.get().getName());
 			dto.setSurname(dao.get().getSurname());
 			dto.setTaxcode(dao.get().getTaxcode());
+			CittaDto citta = new CittaDto();
+			citta.setIdCity(dao.get().getCity().getIdCity());
+			citta.setName(dao.get().getCity().getName());
+			citta.setIdProv(dao.get().getCity().getIdProv());
+			dto.setCitta(citta);
 		} catch (Exception e) {
 			dto = null;
 		}
@@ -110,5 +115,79 @@ public class DipendentiServiceImpl implements DipendentiService{
 		}
 
 		return dto;
+	}
+
+	@Override
+	public ArrayList<DipendentiDto> selByName(String name) {
+		List<DipendentiDao> dao = dipendentiRepository.findByNameLike("%"+name+"%");
+		
+		ArrayList<DipendentiDto> dto = new ArrayList<DipendentiDto>();
+
+		for(DipendentiDao d : dao) {
+			DipendentiDto temp = new DipendentiDto();
+	        CittaDto cityDto = new CittaDto();
+	        cityDto.setIdCity(d.getCity().getIdCity());
+	        cityDto.setName(d.getCity().getName());
+	        cityDto.setIdProv(d.getCity().getIdProv());
+
+			temp.setName(d.getName());
+			temp.setSurname(d.getSurname());
+			temp.setIdDipendente(d.getIdDipendente());
+			temp.setTaxcode(d.getTaxcode());
+			temp.setCitta(cityDto);
+
+			dto.add(temp);
+		}
+
+		return dto;
+	}
+
+	@Override
+	public ArrayList<DipendentiDto> selBySurname(String surname) {
+		List<DipendentiDao> dao = dipendentiRepository.findBySurnameLike("%"+surname+"%");
+		ArrayList<DipendentiDto> dto = new ArrayList<DipendentiDto>();
+
+		for(DipendentiDao d : dao) {
+			DipendentiDto temp = new DipendentiDto();
+	        CittaDto cityDto = new CittaDto();
+	        cityDto.setIdCity(d.getCity().getIdCity());
+	        cityDto.setName(d.getCity().getName());
+	        cityDto.setIdProv(d.getCity().getIdProv());
+
+			temp.setName(d.getName());
+			temp.setSurname(d.getSurname());
+			temp.setIdDipendente(d.getIdDipendente());
+			temp.setTaxcode(d.getTaxcode());
+			temp.setCitta(cityDto);
+
+			dto.add(temp);
+		}
+
+		return dto;
+	}
+
+	@Override
+	public ArrayList<DipendentiDto> selByTaxcode(String taxcode) {
+		List<DipendentiDao> dao = dipendentiRepository.findByTaxcodeLike("%"+taxcode+"%");
+		ArrayList<DipendentiDto> dto = new ArrayList<DipendentiDto>();
+
+		for(DipendentiDao d : dao) {
+			DipendentiDto temp = new DipendentiDto();
+	        CittaDto cityDto = new CittaDto();
+	        cityDto.setIdCity(d.getCity().getIdCity());
+	        cityDto.setName(d.getCity().getName());
+	        cityDto.setIdProv(d.getCity().getIdProv());
+
+			temp.setName(d.getName());
+			temp.setSurname(d.getSurname());
+			temp.setIdDipendente(d.getIdDipendente());
+			temp.setTaxcode(d.getTaxcode());
+			temp.setCitta(cityDto);
+
+			dto.add(temp);
+		}
+
+		return dto;
+
 	}
 }

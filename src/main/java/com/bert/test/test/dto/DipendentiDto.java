@@ -20,6 +20,6 @@ public class DipendentiDto {
 	@NotNull
 	private String taxcode;
 
-  @NotNull
-  private CittaDto citta;
+	@NotNull
+	private CittaDto citta;
 }
