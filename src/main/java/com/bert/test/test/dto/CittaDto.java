@@ -1,6 +1,7 @@
 package com.bert.test.test.dto;
 
 import javax.persistence.Column;
+import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,4 +17,7 @@ public class CittaDto {
 
     @Column(name = "id_prov")
     private String idProv;
+
+    @NotNull
+    private ProvinceDto province;
 }

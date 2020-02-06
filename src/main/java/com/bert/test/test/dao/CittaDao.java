@@ -1,9 +1,6 @@
 package com.bert.test.test.dao;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.Data;
 
@@ -19,5 +16,9 @@ public class CittaDao {
 	private String name;
 
 	@Column(name = "id_prov")
-	private String idProv;
+  private String idProv;
+
+  /*@ManyToOne
+  @JoinColumn(name = "id_prov", foreignKey = @ForeignKey(name = "citta_ibfk_1"))
+	private ProvinceDao province;*/
 }

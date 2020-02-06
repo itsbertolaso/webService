@@ -1,7 +1,9 @@
 package com.bert.test.test.controller;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.bert.test.test.dto.ProvinceDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,37 +19,37 @@ import com.bert.test.test.services.ProvinceService;
 @RestController
 @RequestMapping(value = "api/province")
 public class ProvinceController {
-	
+
 	@Autowired
 	ProvinceService provinceService;
-	
+
 	@GetMapping(produces = "application/json")
 	public BaseResponseDto<List<ProvinceDao>> allCity(){
-		
+
 		List<ProvinceDao> province = provinceService.selTutti();
-		
+
 		BaseResponseDto<List<ProvinceDao>> res = new BaseResponseDto<List<ProvinceDao>>();
-		
+
 		res.setTimestamp(new Date());
 		res.setStatus(HttpStatus.OK.value());
 		res.setMessage("SERVIZIO_ELABORATO_CORRETTAMENTE");
 		res.setResponse(province);
-	
+
 		return res;
 	}
-	
+
 	@GetMapping(produces = "application/json", value = "/regione/{idRegione}")
-	public BaseResponseDto<List<ProvinceDao>> findByIdRegione(@PathVariable("idRegione") String id){
-		
-		List<ProvinceDao> province = provinceService.selByIdRegione(id);
-		
-		BaseResponseDto<List<ProvinceDao>> res = new BaseResponseDto<List<ProvinceDao>>();
-		
+	public BaseResponseDto<ArrayList<ProvinceDto>> findByIdRegione(@PathVariable("idRegione") String id){
+
+    ArrayList<ProvinceDto> province = provinceService.selByIdRegione(id);
+
+		BaseResponseDto<ArrayList<ProvinceDto>> res = new BaseResponseDto<ArrayList<ProvinceDto>>();
+
 		res.setTimestamp(new Date());
 		res.setStatus(HttpStatus.OK.value());
 		res.setMessage("SERVIZIO_ELABORATO_CORRETTAMENTE");
 		res.setResponse(province);
-		
+
 		return res;
 	}
 }
