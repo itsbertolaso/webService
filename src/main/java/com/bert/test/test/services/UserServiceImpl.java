@@ -1,5 +1,15 @@
 package com.bert.test.test.services;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
@@ -7,17 +17,7 @@ import com.bert.test.test.dao.UserDao;
 import com.bert.test.test.dto.UserDto;
 import com.bert.test.test.repository.UserRepository;
 
-import net.bytebuddy.asm.Advice.OffsetMapping.ForField.Unresolved.WithExplicitType;
 import net.minidev.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
-
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
-import java.util.Optional;
 
 @Service
 @Transactional
