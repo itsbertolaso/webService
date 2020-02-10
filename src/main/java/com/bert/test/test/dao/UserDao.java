@@ -12,12 +12,12 @@ import javax.persistence.Table;
 @Data
 public class UserDao {
   @Id
-  @Column(name = "id")
-  private int id;
-
   @Column(name = "name")
   private String name;
 
   @Column(name = "password")
   private String password;
+
+  @Column(name = "role")
+  private String role;
 }

@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserRepository extends JpaRepository<UserDao, Long> {
+public interface UserRepository extends JpaRepository<UserDao, String> {
 }
