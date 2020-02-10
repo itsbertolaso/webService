@@ -48,7 +48,11 @@ public class DipendentiServiceImpl implements DipendentiService{
 
 	@Override
 	public void deleteById(Long id) {
-		dipendentiRepository.deleteById(""+id);
+		if(dipendentiRepository.existsById(""+id)) {
+			dipendentiRepository.deleteById(""+id);
+		}else {
+			return ;
+		}
 	}
 
 	@Override
