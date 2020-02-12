@@ -1,0 +1,32 @@
+version: '3.3'
+
+networks: 
+  ntalphash:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.2.0/24
+
+services:
+  mysql:
+    build:
+      context: .
+    image: db_user_new #lower case 
+    restart: unless-stopped
+    container_name: dbUserNew
+    volumes: 
+      - data-volume:/var/lib/
+    networks: 
+        ntalphash:
+          ipv4_address: 172.20.2.3
+    ports:
+      - target: 3306
+        published: 3397
+        protocol: tcp
+        mode: host
+    environment:
+      - MYSQL_ROOT_PASSWORD=123Stella
+
+volumes:
+  data-volume:
