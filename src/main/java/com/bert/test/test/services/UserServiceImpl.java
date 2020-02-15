@@ -9,10 +9,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 
 import jdk.internal.cmm.SystemResourcePressureImpl;
 import org.json.JSONArray;
@@ -47,14 +44,7 @@ public class UserServiceImpl implements UserService{
         dto.setRole(dao.get().getRole());
         String token = createJWT(dto);
         dto.setJwt(token);
-
-        JSONObject obj = new JSONObject(dao.get().getConfig());
-        dto.setConfig(obj);
-
-        System.out.println("DTO: "+dto.getName());
-
-        //JSONObject kk = new ObjectMapper().readValue(dao.get().getConfig(), JSONObject.class);
-
+        dto.setConfig(dao.get().getConfig());
       }
     }
 

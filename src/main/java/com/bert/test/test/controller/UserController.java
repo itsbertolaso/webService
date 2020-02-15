@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bert.test.test.dto.BaseResponseDto;
 import com.bert.test.test.dto.UserDto;
 import com.bert.test.test.services.UserService;
-import org.json.simple.parser.JSONParser;
 
 import net.minidev.json.JSONObject;
 
@@ -23,8 +22,8 @@ public class UserController {
   @Autowired
   UserService userService;
 
-  @PostMapping(produces = "application/json")
-  public BaseResponseDto<UserDto> login(@RequestBody JSONObject data) throws ParseException, IOException, JSONException {
+  /*@PostMapping(produces = "application/json")
+  public BaseResponseDto<UserDto> login(@RequestBody JSONObject data) throws IOException, JSONException {
 
     BaseResponseDto<UserDto> response = new BaseResponseDto<>();
 
@@ -32,7 +31,30 @@ public class UserController {
     String password = data.getAsString("password");
 
     UserDto dto = null;
-    dto = userService.login(user, password);
+    try {
+      dto = userService.login(user, password);
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
+    response.setResponse(dto);
+    System.out.println("Da controller: " + response.getResponse());
+
+    return response;
+  }*/
+  @PostMapping(produces = "application/json")
+  public BaseResponseDto<UserDto> login(@RequestBody JSONObject data) throws IOException, JSONException {
+
+    BaseResponseDto<UserDto> response = new BaseResponseDto<>();
+
+    String user = data.getAsString("name");
+    String password = data.getAsString("password");
+
+    UserDto dto = null;
+    try {
+      dto = userService.login(user, password);
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
     response.setResponse(dto);
 
     return response;
