@@ -3,6 +3,7 @@ package com.bert.test.test.controller;
 import org.json.JSONException;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import com.bert.test.test.services.UserService;
 import net.minidev.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Date;
 
 @RestController
 @RequestMapping(value = "api/login")
@@ -55,6 +57,10 @@ public class UserController {
     } catch (ParseException e) {
       e.printStackTrace();
     }
+
+    response.setTimestamp(new Date());
+    response.setStatus(HttpStatus.OK.value());
+    response.setMessage("SERVIZIO_ELABORATO_CORRETTAMENTE");
     response.setResponse(dto);
 
     return response;
