@@ -10,4 +10,5 @@ import java.io.IOException;
 
 public interface UserService {
   public UserDto login(String name, String password) throws ParseException, JSONException, IOException;
+  public boolean checkUser(String jwt);
 }

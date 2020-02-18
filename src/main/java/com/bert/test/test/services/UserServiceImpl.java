@@ -8,6 +8,8 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.*;
 
@@ -51,6 +53,12 @@ public class UserServiceImpl implements UserService{
     return dto;
   }
 
+  @Override
+  public boolean checkUser(String jwt) {
+    boolean check = decodeJWT(jwt);
+    return  check;
+  }
+
   private String createJWT(UserDto dto) {
 	  LocalDateTime dateStart = LocalDateTime.now();
 	  LocalDateTime dateStop = dateStart.plusHours(1);
@@ -69,5 +77,14 @@ public class UserServiceImpl implements UserService{
 		}
 
 	  return null;
+  }
+
+  private boolean decodeJWT(String jwt){
+    try{
+      DecodedJWT decode = JWT.decode(jwt);
+      return true;
+    }catch (JWTDecodeException e){
+      return false;
+    }
   }
 }
