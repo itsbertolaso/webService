@@ -1,6 +1,5 @@
 package com.bert.test.test.services;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -8,16 +7,9 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.*;
-
-import jdk.internal.cmm.SystemResourcePressureImpl;
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.json.JSONObject;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

@@ -1,17 +1,11 @@
 package com.bert.test.test.dao;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.google.gson.JsonObject;
-import jdk.internal.instrumentation.TypeMapping;
-import lombok.Data;
-import net.minidev.json.JSONObject;
-import net.minidev.json.annotate.JsonIgnore;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import lombok.Data;
 
 @Entity
 @Table(name = "utente")
