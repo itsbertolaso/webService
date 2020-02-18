@@ -1,13 +1,11 @@
 package com.bert.test.test.dto;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.google.gson.JsonElement;
-import lombok.Getter;
-import lombok.Setter;
-import org.json.JSONArray;
+import java.util.Map;
+
 import org.json.JSONObject;
 
-import java.util.Map;
+import lombok.Getter;
+import lombok.Setter;
 
 
 @Getter

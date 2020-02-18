@@ -2,13 +2,6 @@ package com.bert.test.test.dto;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import org.json.JSONObject;
-import org.json.JSONObject;
-import com.google.gson.*;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
