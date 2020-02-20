@@ -1,5 +1,8 @@
 package com.bert.test.test.services;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -8,6 +11,9 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 
+import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.bert.test.test.exception.UserNotFoundException;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +33,7 @@ public class UserServiceImpl implements UserService{
   UserRepository userRepository;
 
   @Override
-  public UserDto login(String nome, String password) throws JSONException {
+  public UserDto login(String nome, String password) throws JSONException, UserNotFoundException {
     Optional<UserDao> dao = userRepository.findById(nome);
     UserDto dto = new UserDto();
 
@@ -40,8 +46,33 @@ public class UserServiceImpl implements UserService{
         dto.setConfig(dao.get().getConfig());
       }
     }
+    else {
+      throw new UserNotFoundException();
+    }
 
     return dto;
+  }
+
+  @Override
+  public void register(UserDao d) throws UserNotFoundException, UnsupportedEncodingException, NoSuchAlgorithmException {
+
+    Optional<UserDao> dao = userRepository.findById(d.getName());
+
+    if(!dao.isPresent()) {
+      String psw = d.getPassword();
+
+      byte[] bytesOfMessage = psw.getBytes("UTF-8");
+
+      MessageDigest md = MessageDigest.getInstance("MD5");
+      byte[] thedigest = md.digest(bytesOfMessage);
+
+      d.setPassword(thedigest + "");
+
+      userRepository.saveAndFlush(d);
+    }
+    else {
+      throw new UserNotFoundException();
+    }
   }
 
   @Override
@@ -49,6 +80,34 @@ public class UserServiceImpl implements UserService{
     boolean check = decodeJWT(jwt);
     return  check;
   }
+
+  //  	@Override
+//  	public UserDto login(String nome, String password) throws JSONException {
+//  		Optional<UserDao> dao = userRepository.findById(nome);
+//  		UserDto dto = new UserDto();
+//
+//  		if(dao.isPresent()){
+//  			byte[] bytesOfMessage = password.getBytes("UTF-8");
+//
+//	    	MessageDigest md = MessageDigest.getInstance("MD5");
+//	    	byte[] thedigest = md.digest(bytesOfMessage);
+//
+//	    	String idk = new String(thedigest);
+//
+//  			if(dao.get().getPassword().equals(idk)) {
+//  				dto.setName(dao.get().getName());
+//  				dto.setRole(dao.get().getRole());
+//  				String token = createJWT(dto);
+//  				dto.setJwt(token);
+//  				dto.setConfig(dao.get().getConfig());
+//  			}
+//  		}
+//  		else {
+//  			throw new UserNotFoundException();
+//  		}
+//
+//  		return dto;
+//  	}
 
   private String createJWT(UserDto dto) {
 	  LocalDateTime dateStart = LocalDateTime.now();
