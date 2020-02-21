@@ -26,7 +26,7 @@ create table if not exists province(
 create table if not exists citta(
 	id_city int(7) not null,
 	description varchar(20) not null,
-	id_prov varchar(3) not null,
+	id_prov varchar(10) not null,
 	primary key (id_city),
 	foreign key (id_prov) references province (id_prov)
 );
@@ -55,6 +55,6 @@ use employees_management;
 INSERT INTO `nazioni` VALUES ('FR','France'),('IT','Italy'),('US','USA');
 INSERT INTO `regioni` VALUES (1,'Texas','US'),(4,'Bretagna','FR'),(5,'Campania','IT'),(6,'Veneto','IT');
 INSERT INTO `province` VALUES ('NA','Napoli',5),('PD','Padova',6),('VI','Vicenza',6),('FR-35', 'Ille-et-Vilain', 4),('48-001','Anderson',1);
-INSERT INTO `citta` VALUES (35043,'Monselice','PD'),(36100,'Vicenza','VI'),(35000,'Rennes','FR-35'),(75800, 'Palestine', '48-001');
+INSERT INTO `citta` VALUES (80121,'Napoli','NA'),(35043,'Monselice','PD'),(36100,'Vicenza','VI'),(35000,'Rennes','FR-35'),(75800, 'Palestine', '48-001');
 INSERT INTO `dipendenti` VALUES (null,'Pissio','Tullio','ABCGAYH131FIUSD','M','Via gigi 35',36100);
-INSERT INTO `utente` values ('kappa', 'admin', 'admin');
+INSERT INTO `utente` values ('root', '63A9F0EA7BB98050796B649E85481845', 'admin', "{}");
