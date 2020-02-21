@@ -1,7 +1,10 @@
 package com.bert.test.test.controller;
 
-import com.bert.test.test.dao.UserDao;
-import com.bert.test.test.exception.UserNotFoundException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Date;
+
 import org.json.JSONException;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,20 +16,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bert.test.test.dto.BaseResponseDto;
 import com.bert.test.test.dto.UserDto;
+import com.bert.test.test.exception.UserAlreadyExistsException;
+import com.bert.test.test.exception.UserNotFoundException;
 import com.bert.test.test.services.UserService;
 
 import net.minidev.json.JSONObject;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.util.Date;
-
 @RestController
 @RequestMapping(value = "api/login")
 public class UserController {
-  @Autowired
-  UserService userService;
+	@Autowired
+	UserService userService;
 
   /*@PostMapping(produces = "application/json")
   public BaseResponseDto<UserDto> login(@RequestBody JSONObject data) throws IOException, JSONException {
@@ -47,45 +47,46 @@ public class UserController {
 
     return response;
   }*/
-  @PostMapping(produces = "application/json")
-  public BaseResponseDto<UserDto> login(@RequestBody JSONObject data) throws IOException, JSONException {
+	@PostMapping(produces = "application/json")
+	public BaseResponseDto<UserDto> login(@RequestBody JSONObject data) throws IOException, JSONException, NoSuchAlgorithmException, ParseException {
 
-    BaseResponseDto<UserDto> response = new BaseResponseDto<>();
+		BaseResponseDto<UserDto> response = new BaseResponseDto<>();
 
-    String user = data.getAsString("name");
-    String password = data.getAsString("password");
+		String user = data.getAsString("name");
+		String password = data.getAsString("password");
 
-    UserDto dto = null;
-    try {
-      dto = userService.login(user, password);
-    } catch (ParseException | UserNotFoundException e) {
-      e.printStackTrace();
-    }
+		UserDto dto = null;
+		try {
+			dto = userService.login(user, password);
+			response.setStatus(HttpStatus.OK.value());
+			response.setMessage("SERVIZIO_ELABORATO_CORRETTAMENTE");
+		} 
+    	catch (UserNotFoundException ex) {
+    		response.setStatus(HttpStatus.NOT_FOUND.value());
+    	}
 
-    response.setTimestamp(new Date());
-    response.setStatus(HttpStatus.OK.value());
-    response.setMessage("SERVIZIO_ELABORATO_CORRETTAMENTE");
-    response.setResponse(dto);
+		response.setTimestamp(new Date());
+		response.setResponse(dto);
 
-    return response;
-  }
+		return response;
+	}
 
-  @PostMapping(value="/register", produces = "application/json")
-  public BaseResponseDto<UserDto> register(@RequestBody JSONObject data) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+	@PostMapping(value="/register", produces = "application/json")
+	public BaseResponseDto<UserDto> register(@RequestBody JSONObject data) throws UnsupportedEncodingException, NoSuchAlgorithmException {
 
-    BaseResponseDto<UserDto> response = new BaseResponseDto<>();
-    UserDao dao = null;
-    response.setTimestamp(new Date());
+		BaseResponseDto<UserDto> response = new BaseResponseDto<>();
+		//UserDao dao = null;
+		response.setTimestamp(new Date());
 
-    try {
-      userService.register(dao);
-      response.setStatus(HttpStatus.OK.value());
-      response.setMessage("SERVIZIO_ELABORATO_CORRETTAMENTE");
-    }
-    catch (UserNotFoundException ex) {
-      response.setStatus(HttpStatus.NOT_FOUND.value());
-    }
+		try {
+			userService.register(data);
+			response.setStatus(HttpStatus.OK.value());
+			response.setMessage("SERVIZIO_ELABORATO_CORRETTAMENTE");
+		}
+		catch (UserAlreadyExistsException ex) {
+			response.setStatus(HttpStatus.CONFLICT.value());
+		}
 
-    return response;
-  }
+		return response;
+	}
 }
