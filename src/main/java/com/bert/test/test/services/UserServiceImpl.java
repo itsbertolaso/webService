@@ -75,7 +75,8 @@ public class UserServiceImpl implements UserService {
 
   			user.setName(data.getAsString("name"));
   			user.setPassword(hash);
-
+  			user.setRole("user");
+  			user.setConfig("{}");
   			userRepository.saveAndFlush(user);
   		}
   		else {
