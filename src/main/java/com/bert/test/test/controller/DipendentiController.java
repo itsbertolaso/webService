@@ -289,7 +289,7 @@ public class DipendentiController {
     BaseResponseDto<ArrayList<DipendentiDto>> response = new BaseResponseDto<>();
     logger.info("****** Otteniamo i dipendenti con cognome "+ surname + "*******");
 
-    ArrayList<DipendentiDto> dipendente = dipendentiService.selByName(surname);
+    ArrayList<DipendentiDto> dipendente = dipendentiService.selBySurname(surname);
 
     response.setTimestamp(new Date());
     response.setStatus(HttpStatus.OK.value());
@@ -317,7 +317,7 @@ public class DipendentiController {
     BaseResponseDto<ArrayList<DipendentiDto>> response = new BaseResponseDto<>();
     logger.info("****** Otteniamo i dipendenti con taxcode "+ tax + "*******");
 
-    ArrayList<DipendentiDto> dipendente = dipendentiService.selByName(tax);
+    ArrayList<DipendentiDto> dipendente = dipendentiService.selByTaxcode(tax);
 
     response.setTimestamp(new Date());
     response.setStatus(HttpStatus.OK.value());
