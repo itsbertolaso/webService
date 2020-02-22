@@ -52,4 +52,20 @@ public class ProvinceController {
 
 		return res;
 	}
+	
+	@GetMapping(produces = "application/json", value = "/id/{idProvincia}")
+	public BaseResponseDto<ArrayList<ProvinceDto>> findById(@PathVariable("idProvincia") String id){
+
+		ProvinceDto province = provinceService.selById(id);
+    
+		BaseResponseDto<ArrayList<ProvinceDto>> res = new BaseResponseDto<ArrayList<ProvinceDto>>();
+
+		res.setTimestamp(new Date());
+		res.setStatus(HttpStatus.OK.value());
+		res.setMessage("SERVIZIO_ELABORATO_CORRETTAMENTE");
+		res.setResponse(province);
+
+		return res;
+	}
+	
 }
