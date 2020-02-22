@@ -75,12 +75,11 @@ public class UserController {
 	public BaseResponseDto<UserDto> register(@RequestBody JSONObject data) throws UnsupportedEncodingException, NoSuchAlgorithmException {
 
 		BaseResponseDto<UserDto> response = new BaseResponseDto<>();
-		//UserDao dao = null;
 		response.setTimestamp(new Date());
 
 		try {
 			userService.register(data);
-			response.setStatus(HttpStatus.OK.value());
+			response.setStatus(HttpStatus.CREATED.value());
 			response.setMessage("SERVIZIO_ELABORATO_CORRETTAMENTE");
 		}
 		catch (UserAlreadyExistsException ex) {
