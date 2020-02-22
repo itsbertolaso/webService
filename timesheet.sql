@@ -1,5 +1,6 @@
-
 create database if not exists employees_management;
+
+use employees_management;
 
 create table if not exists nazioni(
 	iso varchar(3) not null,
@@ -36,7 +37,7 @@ create table if not exists dipendenti(
 	name varchar(15) not null,
 	surname varchar(15) not null,
 	taxcode varchar(15) not null,
-	gender varchar(1) not null,
+	gender varchar(10) not null,
 	address varchar(20) not null,
 	city int(7) not null, 
 	primary key (id),
