@@ -9,6 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CittaDto {
+	
     @Column(name = "id_city")
     private Long idCity;
 
@@ -20,4 +21,6 @@ public class CittaDto {
 
     @NotNull
     private ProvinceDto province;
+    
+    
 }

@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bert.test.test.dao.CittaDao;
 import com.bert.test.test.dao.DipendentiDao;
 import com.bert.test.test.dto.BaseResponseDto;
+import com.bert.test.test.dto.CittaDto;
 import com.bert.test.test.dto.DipendentiDto;
 import com.bert.test.test.services.DipendentiService;
 
@@ -208,8 +210,7 @@ public class DipendentiController {
    */
   //@PutMapping(value = "/update/{idDipendente}", produces = "application/json")
   @RequestMapping(value = "/update/{idDipendente}", method = RequestMethod.PUT)
-  public BaseResponseDto<DipendentiDao> updateDipendente(@RequestBody DipendentiDao dip, @PathVariable long idDipendente) {
-
+  public BaseResponseDto<DipendentiDao> updateDipendente(@RequestBody DipendentiDto dip, @PathVariable long idDipendente) {
     BaseResponseDto<DipendentiDao> response = new BaseResponseDto<DipendentiDao>();
     logger.info("****** Aggiorna dipendente " + idDipendente + "******");
 
@@ -221,7 +222,7 @@ public class DipendentiController {
 
     if(dipendente.isPresent()) {
       dip.setIdDipendente(""+idDipendente);
-      dipendentiService.updateDipendente(dip);
+      dipendentiService.updateDipendente(DipendentiDtoToDao(dip));
     }
     else {
       response.setStatus(HttpStatus.NOT_FOUND.value());
@@ -333,4 +334,26 @@ public class DipendentiController {
 
     return response;
   }
+  
+  
+  public DipendentiDao DipendentiDtoToDao(DipendentiDto dto) {
+		
+		Optional<DipendentiDao> daoOpt = dipendentiService.selByIdPrivate(Long.parseLong(dto.getIdDipendente()));
+		if(daoOpt.isPresent()) {
+			DipendentiDao dao = daoOpt.get();
+			dao.setCity(cittaDtoToDao(dto.getCitta()));
+			dao.setName(dto.getName());
+			dao.setSurname(dto.getSurname());
+			dao.setTaxcode(dto.getTaxcode());
+			return dao;
+		}
+		
+		return null;			
+	}
+  
+  	public CittaDao cittaDtoToDao(CittaDto citta) {
+		CittaDao dao = new CittaDao(citta.getIdCity(), citta.getName(), citta.getIdProv());
+  		return dao;
+  	}
+  
 }

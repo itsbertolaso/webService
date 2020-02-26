@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DipendentiDto {
-
+	
 	@NotNull
 	private String idDipendente;
 
@@ -22,4 +22,6 @@ public class DipendentiDto {
 
 	@NotNull
 	private CittaDto citta;
+	
+	
 }
