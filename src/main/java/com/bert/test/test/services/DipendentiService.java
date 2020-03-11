@@ -26,4 +26,5 @@ public interface DipendentiService {
 	public void deleteById(Long id);
 	public void createDipendente(DipendentiDao d);
 	public void updateDipendente(DipendentiDao d);
+	public DipendentiDao dipendenteDtoToDao(DipendentiDto d);
 }

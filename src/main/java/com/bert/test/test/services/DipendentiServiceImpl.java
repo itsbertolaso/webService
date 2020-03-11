@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bert.test.test.dao.CittaDao;
 import com.bert.test.test.dao.DipendentiDao;
 import com.bert.test.test.dto.CittaDto;
 import com.bert.test.test.dto.DipendentiDto;
@@ -43,13 +44,13 @@ public class DipendentiServiceImpl implements DipendentiService{
 	}
 
 	public Optional<DipendentiDao> selByIdPrivate(Long id) {
-		return dipendentiRepository.findById(""+id);
+		return dipendentiRepository.findById("" + id);
 	}
 
 	@Override
 	public void deleteById(Long id) {
-		if(dipendentiRepository.existsById(""+id)) {
-			dipendentiRepository.deleteById(""+id);
+		if(dipendentiRepository.existsById("" + id)) {
+			dipendentiRepository.deleteById("" + id);
 		}else {
 			return ;
 		}
@@ -194,4 +195,25 @@ public class DipendentiServiceImpl implements DipendentiService{
 		return dto;
 
 	}
+
+	@Override
+	public DipendentiDao dipendenteDtoToDao(DipendentiDto dto) {
+		
+		Optional<DipendentiDao> daoOpt = this.selByIdPrivate(Long.parseLong(dto.getIdDipendente()));
+		if(daoOpt.isPresent()) {
+			DipendentiDao dao = daoOpt.get();
+			dao.setCity(cittaDtoToDao(dto.getCitta()));
+			dao.setName(dto.getName());
+			dao.setSurname(dto.getSurname());
+			dao.setTaxcode(dto.getTaxcode());
+			return dao;
+		}
+		
+		return null;	
+	}
+	
+	private CittaDao cittaDtoToDao(CittaDto citta) {
+		CittaDao dao = new CittaDao(citta.getIdCity(), citta.getName(), citta.getIdProv());
+  		return dao;
+  	}
 }

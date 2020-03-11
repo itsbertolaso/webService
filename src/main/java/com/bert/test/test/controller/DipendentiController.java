@@ -9,26 +9,23 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bert.test.test.dao.CittaDao;
 import com.bert.test.test.dao.DipendentiDao;
 import com.bert.test.test.dto.BaseResponseDto;
-import com.bert.test.test.dto.CittaDto;
 import com.bert.test.test.dto.DipendentiDto;
 import com.bert.test.test.services.DipendentiService;
 
 @RestController
 @RequestMapping(value = "api/dipendenti")
 public class DipendentiController {
-
 
   /**
    *
@@ -71,6 +68,7 @@ public class DipendentiController {
 
     return response;
   }
+  
 
   /**
    * Questa funzione va ad usare i DAO quando invece si può chiamare direttamente
@@ -127,20 +125,15 @@ public class DipendentiController {
    * @param idDipendente
    * @return response
    */
+  
   @GetMapping(value = "/id/{idDipendente}", produces = "application/json")
   public BaseResponseDto<DipendentiDto> listDipendentiById(@PathVariable("idDipendente") String idDipendente){
 
     BaseResponseDto<DipendentiDto> response = new BaseResponseDto<DipendentiDto>();
+    
     logger.info("****** Cerca dipendente con id "+ idDipendente+" *******");
+    
     DipendentiDto dipendente = dipendentiService.selById(Long.parseLong(idDipendente));
-    //DipendentiDao dip;
-
-		/*try {
-			dip = dipendente.get();
-		}
-		catch (NoSuchElementException ex) {
-			dip = null;
-		}*/
 
     response.setTimestamp(new Date());
     response.setStatus(HttpStatus.OK.value());
@@ -148,18 +141,16 @@ public class DipendentiController {
     response.setResponse(dipendente);
 
     return response;
-
   }
+  
 
   /**
    *
    * @param idDipendente
    * @return response
    */
-  //@DeleteMapping(value = "/delete/{idDipendente}", produces = "application/json")
-  //@GetMapping(value = "/delete/{idDipendente}", produces = "application/json")
-  @RequestMapping(value = "/delete/{idDipendente}", method = RequestMethod.DELETE)
-  //@CrossOrigin
+  
+  @DeleteMapping(value = "/delete/{idDipendente}", produces = "application/json")
   public BaseResponseDto<DipendentiDao> deleteDipendenteById(@PathVariable("idDipendente") String idDipendente){
 
     BaseResponseDto<DipendentiDao> response = new BaseResponseDto<DipendentiDao>();
@@ -187,7 +178,6 @@ public class DipendentiController {
    * @return response
    */
   @PostMapping(value = "/create", produces = "application/json")
-  @CrossOrigin
   public BaseResponseDto<DipendentiDao> createDipendente(@RequestBody DipendentiDao dipendente) {
 
     BaseResponseDto<DipendentiDao> response = new BaseResponseDto<DipendentiDao>();
@@ -201,6 +191,7 @@ public class DipendentiController {
 
     return response;
   }
+  
 
   /**
    *
@@ -208,48 +199,28 @@ public class DipendentiController {
    * @param idDipendente
    * @return response
    */
-  //@PutMapping(value = "/update/{idDipendente}", produces = "application/json")
-  @RequestMapping(value = "/update/{idDipendente}", method = RequestMethod.PUT)
+  @PutMapping(value = "/update/{idDipendente}", produces = "application/json")
   public BaseResponseDto<DipendentiDao> updateDipendente(@RequestBody DipendentiDto dip, @PathVariable long idDipendente) {
     BaseResponseDto<DipendentiDao> response = new BaseResponseDto<DipendentiDao>();
     logger.info("****** Aggiorna dipendente " + idDipendente + "******");
 
     Optional<DipendentiDao> dipendente = dipendentiService.selByIdPrivate(idDipendente);
-    //DipendentiDto dipendente = dipendentiService.selById(idDipendente);
-
-//		@SuppressWarnings("unused")
-//		DipendentiDao temp;
 
     if(dipendente.isPresent()) {
-      dip.setIdDipendente(""+idDipendente);
-      dipendentiService.updateDipendente(DipendentiDtoToDao(dip));
+      dip.setIdDipendente("" + idDipendente);
+      response.setStatus(HttpStatus.OK.value());
+      dipendentiService.updateDipendente(dipendentiService.dipendenteDtoToDao(dip));
     }
     else {
       response.setStatus(HttpStatus.NOT_FOUND.value());
     }
 
-    /*
-     * Bisogna decidere se usare if/else o try/catch
-     */
-
-		/*
-		try {
-			temp = dipendente.get();
-			dip.setIdDipendente(idDipendente);
-			dipendentiService.updateDipendente(dip);
-			response.setResponse("Updated");
-		}
-		catch (NoSuchElementException ex) {
-			response.setResponse("Not found");
-		}
-		 */
-
     response.setTimestamp(new Date());
-    response.setStatus(HttpStatus.OK.value());
     response.setMessage("SERVIZIO_ELABORATO_CORRETTAMENTE");
 
     return response;
   }
+  
 
   /**
    *
@@ -278,6 +249,7 @@ public class DipendentiController {
 
     return response;
   }
+  
 
   /**
    *
@@ -333,27 +305,5 @@ public class DipendentiController {
     }
 
     return response;
-  }
-  
-  
-  public DipendentiDao DipendentiDtoToDao(DipendentiDto dto) {
-		
-		Optional<DipendentiDao> daoOpt = dipendentiService.selByIdPrivate(Long.parseLong(dto.getIdDipendente()));
-		if(daoOpt.isPresent()) {
-			DipendentiDao dao = daoOpt.get();
-			dao.setCity(cittaDtoToDao(dto.getCitta()));
-			dao.setName(dto.getName());
-			dao.setSurname(dto.getSurname());
-			dao.setTaxcode(dto.getTaxcode());
-			return dao;
-		}
-		
-		return null;			
-	}
-  
-  	public CittaDao cittaDtoToDao(CittaDto citta) {
-		CittaDao dao = new CittaDao(citta.getIdCity(), citta.getName(), citta.getIdProv());
-  		return dao;
-  	}
-  
+  } 
 }

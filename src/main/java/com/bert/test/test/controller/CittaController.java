@@ -1,4 +1,5 @@
 package com.bert.test.test.controller;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -9,11 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bert.test.test.dao.CittaDao;
 import com.bert.test.test.dto.BaseResponseDto;
 import com.bert.test.test.dto.CittaDto;
 import com.bert.test.test.services.CittaService;
-
 
 @RestController
 @RequestMapping(value = "api/citta")
@@ -51,7 +50,4 @@ public class CittaController {
 
 		return res;
 	}
-	
-	
-    
 }
