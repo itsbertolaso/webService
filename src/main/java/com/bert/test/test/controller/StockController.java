@@ -35,8 +35,9 @@ public class StockController {
   public BaseResponseDto<StockDto> getStockInfo(@PathVariable("idUser") String idUser) throws IOException {
     BaseResponseDto<StockDto> response = new BaseResponseDto<>();
 
-    UserDto user = userService.getUser(idUser);
     String nome = userService.decodeJwt(idUser);
+    UserDto user = userService.getUser(nome);
+
 
     Map<String, Object> config = user.getConfig();
 

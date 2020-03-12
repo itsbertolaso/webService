@@ -11,6 +11,8 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 import javax.xml.bind.DatatypeConverter;
 
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.interfaces.Claim;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -115,11 +117,18 @@ public class UserServiceImpl implements UserService {
   	}
 
     @Override
-  	public String decodeJwt(String jwt){
-      DecodedJWT kk = JWT.decode(jwt);
-      String nome = kk.getPayload();
-      System.out.println("PAYLOAD: " + nome);
-      return nome;
+  	public String decodeJwt(String token){
+      try{
+        Algorithm algorithm = Algorithm.HMAC256("supersecretword");
+        JWTVerifier verifier = JWT.require(algorithm)
+          .withIssuer("auth0")
+          .build();
+        DecodedJWT jwt = verifier.verify(token);
+
+        Claim nome = jwt.getClaim("nome");
+        return nome.asString();
+
+      } catch (Exception e) {return e.toString();}
       //String name = JWT.parser().setSigningKey("supersecretword").parseClaimsJws("base64EncodedJwtHere").getBody().get("name", String.class);
     }
 
