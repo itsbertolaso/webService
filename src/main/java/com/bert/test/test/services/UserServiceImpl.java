@@ -115,6 +115,15 @@ public class UserServiceImpl implements UserService {
   	}
 
     @Override
+  	public String decodeJwt(String jwt){
+      DecodedJWT kk = JWT.decode(jwt);
+      String nome = kk.getPayload();
+      System.out.println("PAYLOAD: " + nome);
+      return nome;
+      //String name = JWT.parser().setSigningKey("supersecretword").parseClaimsJws("base64EncodedJwtHere").getBody().get("name", String.class);
+    }
+
+    @Override
   	public UserDto login(String nome, String password) throws JSONException, UnsupportedEncodingException, NoSuchAlgorithmException, UserNotFoundException {
   		Optional<UserDao> dao = userRepository.findById(nome);
   		UserDto dto = new UserDto();
@@ -124,9 +133,12 @@ public class UserServiceImpl implements UserService {
 
 	    	MessageDigest md = MessageDigest.getInstance("MD5");
 	    	byte[] thedigest = md.digest(bytesOfMessage);
-  		String hash = DatatypeConverter.printHexBinary(thedigest);
+  		  String hash = DatatypeConverter.printHexBinary(thedigest);
 
-  			if(dao.get().getPassword().equals(hash)) {
+  		  System.out.println("HASH: " + hash);
+  		  System.out.println("PASSWORD: " + dao.get().getPassword());
+
+  			if(dao.get().getPassword().toUpperCase().equals(hash)) {
   				dto.setName(dao.get().getName());
   				dto.setRole(dao.get().getRole());
   				String token = createJWT(dto);
@@ -150,7 +162,8 @@ public class UserServiceImpl implements UserService {
 	    	String token = JWT.create()
 	    		.withExpiresAt(date)
 	    		.withIssuer("auth0")
-	    		.withSubject(dto.getRole())
+	    		.withClaim("role", dto.getRole())
+          .withClaim("nome", dto.getName())
 	    		.sign(algorithm);
 	    	System.out.println("Token:" + token);
 	    	return token;

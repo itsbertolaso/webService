@@ -5,6 +5,7 @@ import com.bert.test.test.dto.StockDto;
 import com.bert.test.test.dto.UserDto;
 import com.bert.test.test.services.DipendentiService;
 import com.bert.test.test.services.UserService;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -16,12 +17,9 @@ import org.springframework.web.client.RestTemplate;
 import springfox.documentation.spring.web.json.Json;
 
 import java.io.*;
-import java.lang.reflect.Array;
-import java.net.HttpURLConnection;
-import java.net.ProtocolException;
+
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,10 +36,10 @@ public class StockController {
     BaseResponseDto<StockDto> response = new BaseResponseDto<>();
 
     UserDto user = userService.getUser(idUser);
+    String nome = userService.decodeJwt(idUser);
 
     Map<String, Object> config = user.getConfig();
 
-    //System.out.println(config.get("stock"));
     String stock = config.get("stock").toString();
     String[] stockSplit = stock.split(",");
 
@@ -64,18 +62,20 @@ public class StockController {
       BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
       String jsonText = readAll(rd);
 
-      String[] divided = jsonText.split("]");
-      ArrayList<JSONObject> jsonOK = new ArrayList<>();
+      String[] splitted = jsonText.split("},");
+      Map<String, Map> test = new HashMap<>();
 
-      for(String s : divided){
+      for(String s : splitted){
         s = s.replace("[", "");
         s = s.replace("]", "");
-        System.out.println(s);
-        JSONObject json = new JSONObject(s);
-        jsonOK.add(json);
+        if(s.equals(" ")) s = "}";
+        s = s.replace("}", "");
+        s = s+="}";
+        JSONObject jj = new JSONObject(s);
+        test.put((String) jj.get("symbol"), jj.toMap());
       }
 
-      response.setResponse(jsonOK);
+      response.setResponse(test);
     } finally {
       is.close();
     }

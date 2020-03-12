@@ -16,4 +16,5 @@ public interface UserService {
   public boolean checkUser(String jwt);
   public void register(JSONObject data) throws UserAlreadyExistsException, UnsupportedEncodingException, NoSuchAlgorithmException;
   public UserDto getUser(String name);
+  public String decodeJwt(String idUser);
 }
