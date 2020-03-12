@@ -15,4 +15,5 @@ public interface UserService {
   public UserDto login(String name, String password)throws JSONException, UnsupportedEncodingException, NoSuchAlgorithmException, UserNotFoundException;
   public boolean checkUser(String jwt);
   public void register(JSONObject data) throws UserAlreadyExistsException, UnsupportedEncodingException, NoSuchAlgorithmException;
+  public UserDto getUser(String name);
 }

@@ -5,14 +5,12 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
+import org.apache.catalina.User;
 import org.json.JSONException;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.bert.test.test.dto.BaseResponseDto;
 import com.bert.test.test.dto.UserDto;
@@ -60,7 +58,7 @@ public class UserController {
 			dto = userService.login(user, password);
 			response.setStatus(HttpStatus.OK.value());
 			response.setMessage("SERVIZIO_ELABORATO_CORRETTAMENTE");
-		} 
+		}
     	catch (UserNotFoundException ex) {
     		response.setStatus(HttpStatus.NOT_FOUND.value());
     	}

@@ -32,7 +32,7 @@ import net.minidev.json.JSONObject;
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
-	
+
 	@Autowired
 	UserRepository userRepository;
 
@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
 
   			MessageDigest md = MessageDigest.getInstance("MD5");
   			byte[] thedigest = md.digest(bytesOfMessage);
-      
+
   			String hash = DatatypeConverter.printHexBinary(thedigest);
 
   			user.setName(data.getAsString("name"));
@@ -84,7 +84,31 @@ public class UserServiceImpl implements UserService {
   		}
   	}
 
-  	@Override
+
+  /**
+   * Questa funzione è a uso esclusivo del controller Stock per ottenere info dall' utente
+   * Non toccare questa funzione fino a nuovo ordine.
+   * @param name
+   * @return
+   */
+  @Override
+  public UserDto getUser(String name) {
+    Optional<UserDao> dao = userRepository.findById(name);
+    UserDto dto = new UserDto();
+
+    System.out.println("DAO: " + dao);
+
+    if(dao.isPresent()){
+      dto.setJwt(null);
+      dto.setRole(null);
+      dto.setName(name);
+      dto.setConfig(dao.get().getConfig());
+    }
+
+    return dto;
+  }
+
+  @Override
   	public boolean checkUser(String jwt) {
   		boolean check = decodeJWT(jwt);
   		return  check;
@@ -130,7 +154,7 @@ public class UserServiceImpl implements UserService {
 	    		.sign(algorithm);
 	    	System.out.println("Token:" + token);
 	    	return token;
-		} 
+		}
     	catch (JWTCreationException exception){
 		    //Invalid Signing configuration / Couldn't convert Claims.
 		}
@@ -143,7 +167,7 @@ public class UserServiceImpl implements UserService {
 	    try {
 	    	DecodedJWT decode = JWT.decode(jwt);
 	    	return true;
-	    } 
+	    }
 	    catch (JWTDecodeException e) {
 	    	return false;
 	    }
