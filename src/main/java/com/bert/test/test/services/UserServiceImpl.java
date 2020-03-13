@@ -164,7 +164,7 @@ public class UserServiceImpl implements UserService {
 
     private String createJWT(UserDto dto) {
     	LocalDateTime dateStart = LocalDateTime.now();
-    	LocalDateTime dateStop = dateStart.plusHours(1);
+    	LocalDateTime dateStop = dateStart.plusHours(3);
     	Date date = Date.from( dateStop.atZone( ZoneId.systemDefault()).toInstant());
     	try {
 	    	Algorithm algorithm = Algorithm.HMAC256("supersecretword");
