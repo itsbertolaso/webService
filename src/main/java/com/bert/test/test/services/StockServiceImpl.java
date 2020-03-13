@@ -31,7 +31,7 @@ public class StockServiceImpl implements StockService{
 
 	@Autowired
 	UserService userService;
-	
+
 	@Override
 	public Map<String, Map> getStock(String token) throws MalformedURLException, IOException {
 		String nome = userService.decodeJwt(token);
@@ -42,7 +42,7 @@ public class StockServiceImpl implements StockService{
 	    Map<String, Object> config = user.getConfig();
 
 	    System.out.println("STOCK: "+ config.get("stock").toString());
-	    
+
 	    String stock = config.get("stock").toString();
 	    String[] stockSplit = stock.split(",");
 
@@ -83,7 +83,7 @@ public class StockServiceImpl implements StockService{
 	      is.close();
 	    }
 	}
-	
+
 	private static String readAll(Reader rd) throws IOException {
 	    StringBuilder sb = new StringBuilder();
 	    int cp;
@@ -93,14 +93,31 @@ public class StockServiceImpl implements StockService{
 	    return sb.toString();
 	  }
 
+	  private Map<String, Map> formatting(String jsonText){
+      String[] splitted = jsonText.split("},");
+      Map<String, Map> test = new HashMap<>();
+
+      for(String s : splitted){
+        s = s.replace("[", "");
+        s = s.replace("]", "");
+        if(s.equals(" ")) s = "}";
+        s = s.replace("}", "");
+        s = s+="}";
+        JSONObject jj = new JSONObject(s);
+        test.put((String) jj.get("symbol"), jj.toMap());
+      }
+
+      return test;
+    }
+
 	@Override
-	public HttpStatus getStock1(String token) {
-		
+	public Map<String, Map> getStock1(String token) {
+
 		String nome = userService.decodeJwt(token);
 	    UserDto user = userService.getUser(nome);
-	    
+
 	    Map<String, Object> config = user.getConfig();
-	    
+
 	    String stock = config.get("stock").toString();
 	    String[] stockSplit = stock.split(",");
 
@@ -114,25 +131,26 @@ public class StockServiceImpl implements StockService{
 	        api += s + ",";
 	      }
 	    }
-		
+
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
-		
+
 		HttpEntity<String> request = new HttpEntity<String>(headers);
-		
+
 		RestTemplate restTemplate = new RestTemplate();
-		
+
 		ResponseEntity<String> responseEntity = restTemplate.exchange(api, HttpMethod.GET, request, String.class);
-		
+
 		responseEntity.getStatusCode();
-		
+
 		if(responseEntity.getStatusCode().equals(HttpStatus.OK)) {
-			responseEntity.getBody();
+			 Map<String, Map> test = formatting(responseEntity.getBody());
+			 return test;
 		}
 		else {
-			return HttpStatus.BAD_REQUEST;
+		  Map<String, Map> bad = new HashMap<>();
+		  bad.put("bad request", bad);
+			return bad;
 		}
-		
-		return null;
-	}	
+	}
 }

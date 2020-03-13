@@ -8,5 +8,5 @@ import org.springframework.http.HttpStatus;
 
 public interface StockService {
 	public Map<String, Map> getStock(String token) throws MalformedURLException, IOException;
-	public HttpStatus getStock1(String token);
+	public Map<String, Map> getStock1(String token);
 }

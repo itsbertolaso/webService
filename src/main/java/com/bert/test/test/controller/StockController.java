@@ -29,7 +29,15 @@ public class StockController {
 
     Map<String, Map> test = stockService.getStock(idUser);
     response.setResponse(test);
-    
+
+    return response;
+  }
+
+  @GetMapping(value= "test/{idUser}", produces = "application/json")
+  public BaseResponseDto<StockDto> getTest(@PathVariable("idUser") String idUser){
+    BaseResponseDto<StockDto> response = new BaseResponseDto<>();
+    response.setResponse(stockService.getStock1(idUser));
+
     return response;
   }
 }
