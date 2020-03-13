@@ -13,8 +13,15 @@ import java.util.Map;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import com.bert.test.test.dto.UserDto;
 
@@ -85,5 +92,47 @@ public class StockServiceImpl implements StockService{
 	    }
 	    return sb.toString();
 	  }
-	
+
+	@Override
+	public HttpStatus getStock1(String token) {
+		
+		String nome = userService.decodeJwt(token);
+	    UserDto user = userService.getUser(nome);
+	    
+	    Map<String, Object> config = user.getConfig();
+	    
+	    String stock = config.get("stock").toString();
+	    String[] stockSplit = stock.split(",");
+
+	    String api = "https://financialmodelingprep.com/api/v3/quote/";
+	    for(String s : stockSplit){
+	      s = s.replace("[", "");
+	      if(s.contains("]")){
+	        s = s.replace("]", "");
+	        api += s;
+	      } else{
+	        api += s + ",";
+	      }
+	    }
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		HttpEntity<String> request = new HttpEntity<String>(headers);
+		
+		RestTemplate restTemplate = new RestTemplate();
+		
+		ResponseEntity<String> responseEntity = restTemplate.exchange(api, HttpMethod.GET, request, String.class);
+		
+		responseEntity.getStatusCode();
+		
+		if(responseEntity.getStatusCode().equals(HttpStatus.OK)) {
+			responseEntity.getBody();
+		}
+		else {
+			return HttpStatus.BAD_REQUEST;
+		}
+		
+		return null;
+	}	
 }
