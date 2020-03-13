@@ -1,9 +1,11 @@
 package com.bert.test.test.controller;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Map;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,13 +32,16 @@ public class StockController {
   }
 
   @PostMapping(value = "update", produces = "application/json")
-  public BaseResponseDto<StockDto> updatePref(@RequestBody Object[] obj){
+  public BaseResponseDto<StockDto> updatePref(@RequestBody Map<String, Object> stock){
     BaseResponseDto<StockDto> response = new BaseResponseDto<>();
 
-    System.out.println("Obj: " + obj.toString());
 
-    response.setResponse("Ciaoooo");
+    for (Map.Entry<String, Object> entry : stock.entrySet()) {
+      System.out.println(entry.getKey() + ":" + entry.getValue().toString());
+    }
 
-    return null;
+    response.setResponse(stock);
+
+    return response;
   }
 }
