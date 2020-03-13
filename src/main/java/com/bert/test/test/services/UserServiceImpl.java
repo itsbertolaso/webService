@@ -112,23 +112,13 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void updateStock(Map<String, Object> stock, String token) {
-    String nome = decodeJwt(token);
-    Optional<UserDao> user = userRepository.findById(nome);
-    if(user.isPresent()){
-      UserDto dto = new UserDto();
-      dto.setConfig(user.get().getConfig());
-      Map<String, Object> config = dto.getConfig();
-      config.replace("stock", stock.get("value"));
-      user.get().setConfigStock(config);
+  public Optional<UserDao> getUserDao(String nome) {
+    return userRepository.findById(nome);
+  }
 
-      System.out.println("Nome: " + user.get().getName());
-      System.out.println("Password: " + user.get().getPassword());
-      System.out.println("Role: " + user.get().getRole());
-      System.out.println("Config: " + user.get().getConfig());
-
-      userRepository.save(user.get());
-    }
+  @Override
+  public void updateUser(UserDao dao) {
+    userRepository.save(dao);
   }
 
   @Override

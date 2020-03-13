@@ -38,15 +38,7 @@ public class StockController {
 
     String userToken = (String) stock.get("token");
 
-    userService.updateStock(stock, userToken);
-
-
-
-    /*for (Map.Entry<String, Object> entry : stock.entrySet()) {
-      System.out.println(entry.getKey() + ":" + entry.getValue().toString());
-    }*/
-
-
+    stockService.updateStock(stock, userToken);
 
     response.setResponse(stock);
 

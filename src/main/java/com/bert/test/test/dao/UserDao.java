@@ -8,6 +8,7 @@ import javax.persistence.Table;
 import lombok.Data;
 import org.json.JSONObject;
 
+import java.util.Iterator;
 import java.util.Map;
 
 @Entity

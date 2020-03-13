@@ -10,7 +10,9 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
+import com.bert.test.test.dao.UserDao;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -83,6 +85,26 @@ public class StockServiceImpl implements StockService{
 	      is.close();
 	    }
 	}
+
+  @Override
+  public void updateStock(Map<String, Object> stock, String token) {
+    String nome = userService.decodeJwt(token);
+    Optional<UserDao> user = userService.getUserDao(nome);
+    if(user.isPresent()){
+      UserDto dto = new UserDto();
+      dto.setConfig(user.get().getConfig());
+      Map<String, Object> config = dto.getConfig();
+      config.replace("stock", stock.get("value"));
+      user.get().setConfigStock(config);
+
+      System.out.println("Nome: " + user.get().getName());
+      System.out.println("Password: " + user.get().getPassword());
+      System.out.println("Role: " + user.get().getRole());
+      System.out.println("Config: " + user.get().getConfig());
+
+      userService.updateUser(user.get());
+    }
+  }
 
 	private static String readAll(Reader rd) throws IOException {
 	    StringBuilder sb = new StringBuilder();
