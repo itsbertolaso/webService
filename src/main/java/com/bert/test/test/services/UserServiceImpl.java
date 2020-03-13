@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -108,6 +109,26 @@ public class UserServiceImpl implements UserService {
     }
 
     return dto;
+  }
+
+  @Override
+  public void updateStock(Map<String, Object> stock, String token) {
+    String nome = decodeJwt(token);
+    Optional<UserDao> user = userRepository.findById(nome);
+    if(user.isPresent()){
+      UserDto dto = new UserDto();
+      dto.setConfig(user.get().getConfig());
+      Map<String, Object> config = dto.getConfig();
+      config.replace("stock", stock.get("value"));
+      user.get().setConfigStock(config);
+
+      System.out.println("Nome: " + user.get().getName());
+      System.out.println("Password: " + user.get().getPassword());
+      System.out.println("Role: " + user.get().getRole());
+      System.out.println("Config: " + user.get().getConfig());
+
+      userRepository.save(user.get());
+    }
   }
 
   @Override

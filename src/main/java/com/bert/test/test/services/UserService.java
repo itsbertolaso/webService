@@ -2,6 +2,7 @@ package com.bert.test.test.services;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Map;
 
 import org.json.JSONException;
 
@@ -17,4 +18,5 @@ public interface UserService {
   public void register(JSONObject data) throws UserAlreadyExistsException, UnsupportedEncodingException, NoSuchAlgorithmException;
   public UserDto getUser(String name);
   public String decodeJwt(String idUser);
+  public void updateStock(Map<String, Object> stock, String token);
 }

@@ -113,7 +113,7 @@ public class StockServiceImpl implements StockService{
 	@Override
 	public Map<String, Map> getStock1(String token) {
 
-		String nome = userService.decodeJwt(token);
+		  String nome = userService.decodeJwt(token);
 	    UserDto user = userService.getUser(nome);
 
 	    Map<String, Object> config = user.getConfig();

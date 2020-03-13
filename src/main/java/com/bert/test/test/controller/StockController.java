@@ -5,6 +5,7 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.bert.test.test.dto.UserDto;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -35,10 +36,17 @@ public class StockController {
   public BaseResponseDto<StockDto> updatePref(@RequestBody Map<String, Object> stock){
     BaseResponseDto<StockDto> response = new BaseResponseDto<>();
 
+    String userToken = (String) stock.get("token");
 
-    for (Map.Entry<String, Object> entry : stock.entrySet()) {
+    userService.updateStock(stock, userToken);
+
+
+
+    /*for (Map.Entry<String, Object> entry : stock.entrySet()) {
       System.out.println(entry.getKey() + ":" + entry.getValue().toString());
-    }
+    }*/
+
+
 
     response.setResponse(stock);
 
