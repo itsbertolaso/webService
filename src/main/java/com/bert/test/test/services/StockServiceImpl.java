@@ -8,6 +8,7 @@ import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -26,6 +27,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import com.bert.test.test.dto.UserDto;
+
+import javax.sound.midi.SysexMessage;
 
 @Service
 @Transactional
@@ -125,6 +128,9 @@ public class StockServiceImpl implements StockService{
         if(s.equals(" ")) s = "}";
         s = s.replace("}", "");
         s = s+="}";
+
+        System.out.println("sssssssssss" + s);
+
         JSONObject jj = new JSONObject(s);
         test.put((String) jj.get("symbol"), jj.toMap());
       }
@@ -141,7 +147,10 @@ public class StockServiceImpl implements StockService{
 	    Map<String, Object> config = user.getConfig();
 
 	    String stock = config.get("stock").toString();
+	    System.out.println("Stock: " + stock);
 	    String[] stockSplit = stock.split(",");
+
+	    System.out.println("StockSplit: " + Arrays.toString(stockSplit));
 
 	    String api = "https://financialmodelingprep.com/api/v3/quote/";
 	    for(String s : stockSplit){
@@ -153,6 +162,8 @@ public class StockServiceImpl implements StockService{
 	        api += s + ",";
 	      }
 	    }
+
+	    System.out.println("STRINGA: " + api);
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
@@ -166,6 +177,7 @@ public class StockServiceImpl implements StockService{
 		responseEntity.getStatusCode();
 
 		if(responseEntity.getStatusCode().equals(HttpStatus.OK)) {
+		   System.out.println("BODY: " + responseEntity.getBody());
 			 Map<String, Map> test = formatting(responseEntity.getBody());
 			 return test;
 		}

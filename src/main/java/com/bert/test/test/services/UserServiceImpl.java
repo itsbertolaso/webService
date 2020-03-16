@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService {
   			user.setName(data.getAsString("name"));
   			user.setPassword(hash);
   			user.setRole("user");
-  			user.setConfig("{}");
+        user.setConfig("{\"type\":\"in\", \"stock\":[], \"registration\":\"default\"}");
   			userRepository.saveAndFlush(user);
   		}
   		else {
